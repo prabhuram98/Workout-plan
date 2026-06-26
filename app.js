@@ -1,69 +1,86 @@
 const workouts = {
-w1:{name:"Workout 1",ex:[["Leg Press","4x8-12"],["Chest Press","4x8-12"],["Lat Pulldown","4x8-12"]]},
-w2:{name:"Workout 2",ex:[["Incline Walk","25-35 min"],["Squats","4x12"]]},
-w3:{name:"Workout 3",ex:[["Dumbbell Press","3x8-12"],["Rows","4x8-12"]]},
-w4:{name:"Workout 4",ex:[["Steps","8000-12000"]]},
-w5:{name:"Workout 5",ex:[["Squat","4x8-12"],["Bench Press","4x8-10"]]},
-w6:{name:"Workout 6",ex:[["Burpees","5x10"],["Pushups","5x10"]]}
+w1:{name:"Full Body A",ex:[
+["Leg Press","4x8-12"],
+["Chest Press","4x8-12"],
+["Lat Pulldown","4x8-12"]
+]},
+w2:{name:"Fat Loss",ex:[
+["Incline Walk","25 min"],
+["Squats","4x12"]
+]},
+w3:{name:"Upper Body",ex:[
+["Dumbbell Press","3x10"],
+["Rows","4x10"]
+]},
+w4:{name:"Recovery",ex:[
+["Steps","8000"]
+]},
+w5:{name:"Full Body B",ex:[
+["Squat","4x10"],
+["Bench Press","4x8"]
+]},
+w6:{name:"HIIT",ex:[
+["Burpees","5x10"],
+["Pushups","5x10"]
+]}
 };
 
+let stack = ["home"];
 let logs = JSON.parse(localStorage.getItem("logs")) || [];
 
-/* NAVIGATION */
-function go(id){
+/* NAV STACK */
+function go(page){
 document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-document.getElementById(id).classList.add("active");
+document.getElementById(page).classList.add("active");
 
-if(id==="progress"){
-document.getElementById("stats").innerHTML =
-"Total workouts logged: " + logs.length;
+stack.push(page);
+
+document.getElementById("backBtn").style.display =
+stack.length > 1 ? "block" : "none";
 }
+
+/* BACK */
+function back(){
+if(stack.length <= 1) return;
+
+stack.pop();
+let page = stack[stack.length - 1];
+
+document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+document.getElementById(page).classList.add("active");
+
+document.getElementById("backBtn").style.display =
+stack.length > 1 ? "block" : "none";
 }
 
-/* HOME NAV */
-document.querySelectorAll("[data-go]").forEach(el=>{
-el.addEventListener("click",()=>go(el.dataset.go));
-});
-
-/* LOAD WORKOUTS */
-const list = document.getElementById("workoutList");
+/* LOAD DROPDOWN */
+window.onload = () => {
+let sel = document.getElementById("todayWorkout");
 
 Object.keys(workouts).forEach(k=>{
-const div = document.createElement("div");
-div.className="card";
-div.innerText = workouts[k].name;
-
-div.onclick = ()=>openWorkout(k);
-
-list.appendChild(div);
+let opt = document.createElement("option");
+opt.value = k;
+opt.innerText = workouts[k].name;
+sel.appendChild(opt);
 });
+};
 
-/* OPEN WORKOUT */
-function openWorkout(id){
-go("detail");
+/* OPEN WORKOUT FROM SELECT */
+function openWorkoutFromSelect(){
+let id = document.getElementById("todayWorkout").value;
+let w = workouts[id];
 
-const w = workouts[id];
-document.getElementById("workoutTitle").innerText = w.name;
+go("workoutDetail");
 
-const box = document.getElementById("exerciseList");
+document.getElementById("wtitle").innerText = w.name;
+
+let box = document.getElementById("exercises");
 box.innerHTML = "";
 
 w.ex.forEach(e=>{
-const el = document.createElement("div");
-el.className="card";
-
-el.innerHTML = `
-<b>${e[0]}</b><br>${e[1]}<br>
-<button onclick="logExercise('${e[0]}')">Log</button>
-`;
-
-box.appendChild(el);
+let div = document.createElement("div");
+div.className="card";
+div.innerHTML = `<b>${e[0]}</b><br>${e[1]}`;
+box.appendChild(div);
 });
-}
-
-/* LOG */
-function logExercise(name){
-logs.push(name);
-localStorage.setItem("logs",JSON.stringify(logs));
-alert("Saved ✔");
 }

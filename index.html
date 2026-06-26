@@ -2,11 +2,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PRABHU's Trainer</title>
 
-<link rel="stylesheet" href="style.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -17,9 +17,9 @@
     <h1>PRABHU's Trainer</h1>
 
     <div class="grid">
-      <div class="card" onclick="switchTab('workouts')">🏋️ Workout</div>
-      <div class="card" onclick="switchTab('diet')">🍽️ Diet</div>
-      <div class="card" onclick="switchTab('progress')">📊 Progress</div>
+      <div class="card" onclick="go('workouts')">🏋️ Workouts</div>
+      <div class="card" onclick="go('diet')">🍽️ Diet</div>
+      <div class="card" onclick="go('progress')">📊 Progress</div>
     </div>
 
     <div class="footer">Developed By PR</div>
@@ -39,7 +39,7 @@
 
   <div class="timer">
     <canvas id="timerCanvas" width="120" height="120"></canvas>
-    <button onclick="startRest(60)">Start Rest</button>
+    <button onclick="startRest(60)">Rest Timer</button>
   </div>
 </div>
 
@@ -52,36 +52,29 @@
 
 <!-- PROGRESS -->
 <div id="progress" class="screen">
+  <h2>Progress</h2>
 
-<h2>Progress</h2>
+  <div class="stats">
+    <div class="card">🔥 Streak: <span id="streak"></span></div>
+    <div class="card">✔ Done: <span id="done"></span></div>
+  </div>
 
-<div class="stats">
-  <div class="card">🔥 Streak: <span id="streak"></span></div>
-  <div class="card">✔ Done: <span id="done"></span></div>
-</div>
+  <canvas id="chart"></canvas>
 
-<div class="card">
-<canvas id="chart"></canvas>
-</div>
+  <div class="card">
+    <h3>Fat Loss Prediction</h3>
+    <div id="fat"></div>
+  </div>
 
-<div class="card">
-<h3>Fat Loss Prediction</h3>
-<div id="fat"></div>
-</div>
+  <div class="card">
+    <h3>History</h3>
+    <div id="history"></div>
+  </div>
 
-<div class="card">
-<h3>History</h3>
-<div id="history"></div>
-</div>
-
-</div>
-
-<!-- NAV -->
-<div class="nav">
-  <button onclick="switchTab('home')">Home</button>
-  <button onclick="switchTab('workouts')">Workout</button>
-  <button onclick="switchTab('diet')">Diet</button>
-  <button onclick="switchTab('progress')">Progress</button>
+  <div class="card">
+    <h3>Exercise Progress</h3>
+    <div id="exProgress"></div>
+  </div>
 </div>
 
 <script src="app.js"></script>

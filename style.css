@@ -1,66 +1,53 @@
 body{
 margin:0;
 font-family:-apple-system;
-background:linear-gradient(180deg,#eef2ff,#f8fafc);
+background:#0b0f1a;
+color:white;
 overflow-x:hidden;
 }
 
 .screen{
 display:none;
-padding:15px;
-padding-bottom:90px;
+padding:20px;
 }
 
 .screen.active{
 display:block;
 }
 
-.glass-header{
+h1,h2{
 text-align:center;
-margin-top:30px;
-}
-
-.glass-card{
-background:rgba(255,255,255,0.7);
-backdrop-filter:blur(10px);
-padding:18px;
-margin:10px 0;
-border-radius:16px;
-box-shadow:0 10px 25px rgba(0,0,0,0.08);
-cursor:pointer;
-font-weight:500;
 }
 
 .grid{
 display:grid;
-grid-template-columns:1fr 1fr;
+grid-template-columns:1fr;
 gap:12px;
-margin-top:25px;
-}
-
-.header{
-font-size:20px;
-font-weight:700;
-margin-bottom:10px;
-}
-
-button{
-background:#2563eb;
-color:white;
-border:none;
-padding:10px 12px;
-border-radius:10px;
-margin-top:8px;
-}
-
-.timer{
-text-align:center;
 margin-top:20px;
+}
+
+.card{
+background:#111827;
+padding:16px;
+border-radius:14px;
+margin:10px 0;
+border:1px solid rgba(255,255,255,0.05);
+cursor:pointer;
 }
 
 .footer{
 text-align:center;
 font-size:12px;
-color:gray;
-margin-top:40px;
+color:#666;
+margin-top:30px;
+}
+
+button{
+background:#22c55e;
+border:none;
+padding:10px;
+border-radius:10px;
+color:black;
+font-weight:bold;
+margin-top:10px;
 }

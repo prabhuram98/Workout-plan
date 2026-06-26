@@ -9,63 +9,55 @@
 
 <body>
 
+<div id="app">
+
 <!-- HOME -->
-<div id="home" class="screen active">
-  <div class="glass-header">
-    <h1>PRABHU's Trainer</h1>
-    <p>Train Smart • Stay Consistent</p>
-  </div>
+<section id="home" class="screen active">
+  <h1>PRABHU's Trainer</h1>
 
   <div class="grid">
-    <div class="glass-card" onclick="go('workouts')">🏋️ Workout</div>
-    <div class="glass-card" onclick="go('diet')">🍽️ Diet</div>
-    <div class="glass-card" onclick="go('progress')">📊 Progress</div>
+    <div class="card" data-go="workouts">🏋️ Workout</div>
+    <div class="card" data-go="diet">🍽️ Diet</div>
+    <div class="card" data-go="progress">📊 Progress</div>
   </div>
 
   <div class="footer">Developed By PR</div>
-</div>
+</section>
 
-<!-- WORKOUT LIST -->
-<div id="workouts" class="screen">
-  <div class="header">Workout Plan</div>
+<!-- WORKOUTS -->
+<section id="workouts" class="screen">
+  <h2>Workouts</h2>
   <div id="workoutList"></div>
-</div>
+</section>
 
 <!-- DETAIL -->
-<div id="detail" class="screen">
-  <div class="header" id="wtitle"></div>
-  <div id="exList"></div>
+<section id="detail" class="screen">
+  <h2 id="title"></h2>
+  <div id="exercises"></div>
 
   <div class="timer">
-    <canvas id="circle" width="120" height="120"></canvas>
-    <button onclick="startTimer(60)">Start Rest</button>
+    <canvas id="timerCanvas" width="140" height="140"></canvas>
+    <button id="timerBtn">Start Rest</button>
   </div>
-</div>
+</section>
 
 <!-- DIET -->
-<div id="diet" class="screen">
-  <div class="header">Diet</div>
-  <div class="glass-card">Calories: 1900–2100</div>
-  <div class="glass-card">Protein: 100–130g</div>
-</div>
+<section id="diet" class="screen">
+  <h2>Diet</h2>
+  <div class="card">Calories: 1900–2100</div>
+  <div class="card">Protein: 100–130g</div>
+</section>
 
 <!-- PROGRESS -->
-<div id="progress" class="screen">
-  <div class="header">Progress</div>
+<section id="progress" class="screen">
+  <h2>Progress</h2>
 
-  <div class="stats">
-    <div class="glass-card">🔥 Logs: <span id="count"></span></div>
-    <div class="glass-card">📅 Streak: <span id="streak"></span></div>
-  </div>
+  <div class="card" id="stats"></div>
+  <div class="card" id="history"></div>
+</section>
 
-  <div id="barChart"></div>
-
-  <div class="glass-card">
-    <h3>Recent Activity</h3>
-    <div id="history"></div>
-  </div>
 </div>
 
-<script src="app.js"></script>
+<script src="app.js" defer></script>
 </body>
 </html>

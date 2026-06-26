@@ -1,103 +1,119 @@
+// ---------------- DATA ----------------
+
 const workouts = {
 "Workout 1": [
 { name:"Leg Press", sets:4, reps:"8-12", type:"rep" },
 { name:"Chest Press", sets:4, reps:"8-12", type:"rep" },
 { name:"Lat Pulldown", sets:4, reps:"8-12", type:"rep" }
 ],
+
 "Workout 2": [
 { name:"Incline Walk", sets:1, reps:"25-35 min", type:"time" },
 { name:"Squats", sets:3, reps:"12", type:"rep" },
 { name:"Push-ups", sets:3, reps:"10", type:"rep" },
 { name:"Plank", sets:3, reps:"60 sec", type:"time" }
+],
+
+"Workout 3": [
+{ name:"Dumbbell Press", sets:3, reps:"10", type:"rep" },
+{ name:"Rows", sets:3, reps:"10", type:"rep" }
 ]
 };
 
-let currentWorkout = null;
+let current = null;
 let history = JSON.parse(localStorage.getItem("history")) || [];
+let streak = JSON.parse(localStorage.getItem("streak")) || {count:0,last:null};
 
-/* NAV */
-function show(id){
+// ---------------- NAV ----------------
+
+function go(id){
 document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
 document.getElementById(id).classList.add("active");
+
+if(id==="workout") renderWorkouts();
+if(id==="progress") renderProgress();
+if(id==="home") updateStreakUI();
 }
 
-function goHome(){ show("home"); }
+// ---------------- HOME ----------------
 
-function openWorkoutHub(){
-show("workoutHub");
-renderWorkouts();
+function updateStreakUI(){
+document.getElementById("streak").innerText = streak.count || 0;
 }
 
-function openProgress(){
-show("progress");
-renderProgress();
-}
+updateStreakUI();
 
-/* HUB */
+// ---------------- WORKOUT LIST ----------------
+
 function renderWorkouts(){
-const list = document.getElementById("workoutList");
-list.innerHTML="";
+let box = document.getElementById("workoutList");
+box.innerHTML="";
 
 Object.keys(workouts).forEach(w=>{
 let div=document.createElement("div");
-div.className="workout-card";
+div.className="card";
 div.innerText=w;
 div.onclick=()=>openWorkout(w);
-list.appendChild(div);
+box.appendChild(div);
 });
 }
 
-/* WORKOUT */
+// ---------------- WORKOUT DETAIL ----------------
+
 function openWorkout(name){
-currentWorkout=name;
-show("workoutDetail");
+current=name;
+go("detail");
 
-document.getElementById("workoutTitle").innerText=name;
+document.getElementById("wtitle").innerText=name;
 
-renderExercises();
-}
+let box=document.getElementById("exercises");
+box.innerHTML="";
 
-function renderExercises(){
-const list=document.getElementById("exerciseList");
-list.innerHTML="";
-
-workouts[currentWorkout].forEach((ex,i)=>{
-let div=document.createElement("div");
-div.className="exercise";
-
-let inputs="";
-
-for(let s=0;s<ex.sets;s++){
-inputs+=`
-<div>
-Set ${s+1}: <input id="${ex.name}-${s}" placeholder="0">
-</div>`;
-}
-
-div.innerHTML=`
-<h3>${ex.name}</h3>
-<p>Planned: ${ex.sets} × ${ex.reps}</p>
-${inputs}
+workouts[name].forEach(ex=>{
+let html=`
+<div class="exercise">
+<b>${ex.name}</b><br>
+Planned: ${ex.sets} × ${ex.reps}<br><br>
 `;
 
-list.appendChild(div);
+for(let i=0;i<ex.sets;i++){
+html+=`Set ${i+1}: <input id="${ex.name}-${i}" placeholder="0"><br>`;
+}
+
+html+=`</div>`;
+box.innerHTML+=html;
 });
 }
 
-/* SAVE WORKOUT */
+// ---------------- SAVE WORKOUT ----------------
+
 function saveWorkout(){
 
 let session={
-workout:currentWorkout,
-date:new Date().toLocaleDateString(),
+workout:current,
+date:new Date().toDateString(),
 exercises:[]
 };
 
-workouts[currentWorkout].forEach(ex=>{
+// update streak
+let today=new Date().toDateString();
+
+if(streak.last!==today){
+let diff = Math.floor((new Date(today)-new Date(streak.last||today))/(1000*60*60*24));
+
+if(diff===1) streak.count++;
+else streak.count=1;
+
+streak.last=today;
+}
+
+localStorage.setItem("streak",JSON.stringify(streak));
+
+workouts[current].forEach(ex=>{
 let sets=[];
 
-for(let s=0;s<ex.sets;s++){
-let val=document.getElementById(`${ex.name}-${s}`).value || 0;
+for(let i=0;i<ex.sets;i++){
+let val=document.getElementById(`${ex.name}-${i}`).value || 0;
 sets.push(Number(val));
 }
 
@@ -111,29 +127,35 @@ actual:sets
 history.push(session);
 localStorage.setItem("history",JSON.stringify(history));
 
-alert("Workout saved!");
+alert("Workout saved ✔");
 
-goHome();
+go("home");
 }
 
-/* PROGRESS */
+// ---------------- PROGRESS ----------------
+
 function renderProgress(){
-const box=document.getElementById("progressData");
+
+let box=document.getElementById("progressBox");
 box.innerHTML="";
 
-history.forEach(h=>{
-let div=document.createElement("div");
-div.className="workout-card";
-
-div.innerHTML=`
-<b>${h.workout}</b><br>
-${h.date}<br>
+box.innerHTML+=`
+<div class="card">
+🔥 Streak: ${streak.count}
+</div>
 `;
 
+history.slice().reverse().forEach(h=>{
+let div=document.createElement("div");
+div.className="card";
+
+div.innerHTML=`<b>${h.workout}</b><br>${h.date}<br><br>`;
+
 h.exercises.forEach(e=>{
-let avg=e.actual.reduce((a,b)=>a+b,0)/e.actual.length;
+let avg = e.actual.reduce((a,b)=>a+b,0)/e.actual.length;
+
 div.innerHTML+=`
-<p>${e.name} → Avg: ${avg.toFixed(1)}</p>
+${e.name}: Avg ${avg.toFixed(1)}<br>
 `;
 });
 

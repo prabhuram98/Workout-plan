@@ -1,128 +1,135 @@
-let logs = JSON.parse(localStorage.getItem("logs")) || [];
-let streak = 0;
+document.addEventListener("DOMContentLoaded", () => {
 
-const workouts = {
-w1:{name:"Workout 1",ex:[
-["Leg Press","4x8-12"],
-["Chest Press","4x8-12"],
-["Lat Pulldown","4x8-12"]
-]},
-w2:{name:"Workout 2",ex:[
-["Incline Walk","25 min"],
-["Squats","4x12"]
-]},
-w3:{name:"Workout 3",ex:[
-["Dumbbell Press","3x10"],
-["Rows","4x10"]
-]},
-w4:{name:"Workout 4",ex:[
-["Steps","8000"]
-]},
-w5:{name:"Workout 5",ex:[
-["Squat","4x10"],
-["Bench Press","4x8"]
-]},
-w6:{name:"Workout 6",ex:[
-["Burpees","5x10"],
-["Pushups","5x10"]
-]}
+/* ================= STATE ================= */
+const state = {
+logs: JSON.parse(localStorage.getItem("logs")) || [],
+currentWorkout: null,
+timer: null
 };
 
-/* NAV */
-function go(id){
+/* ================= WORKOUT DATA ================= */
+const workouts = {
+w1:{name:"Workout 1",ex:[["Leg Press","4x8"],["Chest Press","4x8"]]},
+w2:{name:"Workout 2",ex:[["Incline Walk","25 min"],["Squats","4x12"]]},
+w3:{name:"Workout 3",ex:[["Dumbbell Press","3x10"],["Rows","4x10"]]},
+w4:{name:"Workout 4",ex:[["Steps","8000"]]},
+w5:{name:"Workout 5",ex:[["Squat","4x10"],["Bench Press","4x8"]]},
+w6:{name:"Workout 6",ex:[["Burpees","5x10"],["Pushups","5x10"]]}
+};
+
+/* ================= NAV ================= */
+function show(id){
 document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
 document.getElementById(id).classList.add("active");
 
 if(id==="progress") render();
 }
 
-/* LOAD WORKOUTS */
-Object.keys(workouts).forEach(k=>{
-document.getElementById("workoutList").innerHTML +=
-`<div class="glass-card" onclick="openW('${k}')">${workouts[k].name}</div>`;
+/* attach nav */
+window.show = show;
+
+/* home navigation */
+document.querySelectorAll("[data-go]").forEach(el=>{
+el.addEventListener("click",()=>show(el.dataset.go));
 });
 
-/* OPEN WORKOUT */
-function openW(id){
-go("detail");
+/* ================= LOAD WORKOUTS ================= */
+const list = document.getElementById("workoutList");
 
-let w = workouts[id];
-document.getElementById("wtitle").innerText = w.name;
+Object.keys(workouts).forEach(k=>{
+const div = document.createElement("div");
+div.className="card";
+div.innerText = workouts[k].name;
 
-let box = document.getElementById("exList");
+div.onclick = () => openWorkout(k);
+
+list.appendChild(div);
+});
+
+/* ================= OPEN WORKOUT ================= */
+function openWorkout(id){
+state.currentWorkout = id;
+show("detail");
+
+const w = workouts[id];
+document.getElementById("title").innerText = w.name;
+
+const box = document.getElementById("exercises");
 box.innerHTML = "";
 
 w.ex.forEach(e=>{
-box.innerHTML += `
-<div class="glass-card">
-<b>${e[0]}</b><br>${e[1]}
-<br>
-<button onclick="log('${e[0]}')">Log</button>
-</div>`;
+const el = document.createElement("div");
+el.className="card";
+
+el.innerHTML = `
+<b>${e[0]}</b><br>${e[1]}<br>
+<button>Log</button>
+`;
+
+el.querySelector("button").onclick = () => log(e[0]);
+
+box.appendChild(el);
 });
 }
 
-/* LOG */
+window.openWorkout = openWorkout;
+
+/* ================= LOG ================= */
 function log(ex){
-logs.push(ex);
-localStorage.setItem("logs",JSON.stringify(logs));
+state.logs.push(ex);
+localStorage.setItem("logs",JSON.stringify(state.logs));
 alert("Saved ✔");
 }
+window.log = log;
 
-/* TIMER (CIRCLE) */
-let t;
-function startTimer(s){
-let c=document.getElementById("circle");
-let ctx=c.getContext("2d");
-let time=s;
+/* ================= TIMER ================= */
+const canvas = document.getElementById("timerCanvas");
+const ctx = canvas.getContext("2d");
+const btn = document.getElementById("timerBtn");
 
-clearInterval(t);
+let timeLeft = 0;
 
-function draw(){
-ctx.clearRect(0,0,120,120);
+function draw(t){
+ctx.clearRect(0,0,140,140);
 
 ctx.beginPath();
-ctx.arc(60,60,40,0,Math.PI*2);
-ctx.strokeStyle="#e5e7eb";
+ctx.arc(70,70,50,0,Math.PI*2);
+ctx.strokeStyle="#333";
 ctx.lineWidth=10;
 ctx.stroke();
 
 ctx.beginPath();
-ctx.arc(60,60,40,-Math.PI/2,(Math.PI*2*(time/s))-Math.PI/2);
-ctx.strokeStyle="#2563eb";
-ctx.lineWidth=10;
+ctx.arc(70,70,50,-Math.PI/2,(Math.PI*2*(t/60))-Math.PI/2);
+ctx.strokeStyle="#22c55e";
 ctx.stroke();
 
+ctx.fillStyle="white";
 ctx.font="16px Arial";
-ctx.fillText(time,50,65);
+ctx.fillText(t,60,75);
 }
 
-t=setInterval(()=>{
-if(time<=0){
-clearInterval(t);
+btn.onclick = () => {
+timeLeft = 60;
+
+if(state.timer) clearInterval(state.timer);
+
+state.timer = setInterval(()=>{
+if(timeLeft<=0){
+clearInterval(state.timer);
 return;
 }
-time--;
-draw();
+timeLeft--;
+draw(timeLeft);
 },1000);
-}
+};
 
-/* PROGRESS */
+/* ================= PROGRESS ================= */
 function render(){
+document.getElementById("stats").innerHTML =
+`Total Logs: ${state.logs.length}`;
 
-document.getElementById("count").innerText = logs.length;
-
-/* streak (simple) */
-streak = Math.min(logs.length, 30);
-document.getElementById("streak").innerText = streak;
-
-/* history */
 document.getElementById("history").innerHTML =
-logs.slice(-8).map(l=>`<div>${l}</div>`).join("");
-
-/* simple bar chart */
-document.getElementById("barChart").innerHTML =
-`<div class="glass-card">
-Progress Score: ${logs.length * 10}
-</div>`;
+state.logs.slice(-10).map(x=>`<div>🏋️ ${x}</div>`).join("");
 }
+
+});

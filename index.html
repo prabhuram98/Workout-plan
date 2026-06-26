@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Fitness App</title>
+<title>PRABHU's Trainer</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -11,7 +11,7 @@
 
 <!-- HOME -->
 <div id="home" class="screen active">
-  <h2 class="title">Fitness App</h2>
+  <h2 class="title">PRABHU's Trainer</h2>
 
   <div class="card" onclick="go('workout')">🏋️ Workout</div>
   <div class="card" onclick="go('progress')">📊 Progress</div>
@@ -23,38 +23,37 @@
 
 <!-- WORKOUT LIST -->
 <div id="workout" class="screen">
-
   <div class="top">
     <h2>Workout Hub</h2>
-    <button onclick="go('home')">Back</button>
   </div>
-
   <div id="workoutList"></div>
 </div>
 
-<!-- WORKOUT DETAIL -->
+<!-- DETAIL -->
 <div id="detail" class="screen">
-
   <div class="top">
     <h2 id="wtitle"></h2>
     <button onclick="saveWorkout()">Save</button>
   </div>
-
   <div id="exercises"></div>
-
 </div>
 
 <!-- PROGRESS -->
 <div id="progress" class="screen">
-
   <div class="top">
     <h2>Progress</h2>
-    <button onclick="go('home')">Back</button>
   </div>
-
   <div id="progressBox"></div>
-
 </div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <div onclick="go('home')">🏠<br><span>Home</span></div>
+  <div onclick="go('workout')">🏋️<br><span>Workout</span></div>
+  <div onclick="go('progress')">📊<br><span>Progress</span></div>
+</div>
+
+<div class="footer">Built by PR</div>
 
 <script src="app.js"></script>
 </body>

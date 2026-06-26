@@ -1,121 +1,160 @@
-let current="home";
+let progress = JSON.parse(localStorage.getItem("p")) || {streak:0,done:0};
+let history = JSON.parse(localStorage.getItem("h")) || [];
+let log = JSON.parse(localStorage.getItem("l")) || {};
 
-let progress = JSON.parse(localStorage.getItem("progress"))||{streak:0,completed:[]};
-let history = JSON.parse(localStorage.getItem("history"))||[];
-let bodyData = JSON.parse(localStorage.getItem("body"))||{};
-let exerciseLog = JSON.parse(localStorage.getItem("ex"))||{};
-
-const workouts={
-w1:["Workout 1 – Full Body A",[
+const workouts = {
+w1:{
+name:"Workout 1",
+ex:[
 ["Leg Press","4x8-12"],
 ["Chest Press","4x8-12"],
-["Lat Pulldown","4x8-12"],
-["Shoulder Press","3x8-10"],
-["Plank","3x60s"]
-]],
-
-w2:["Workout 2 – Fat Loss",[
+["Lat Pulldown","4x8-12"]
+]
+},
+w2:{
+name:"Workout 2",
+ex:[
 ["Incline Walk","25-35 min"],
-["Squats","4x12"],
-["Push-ups","4x10"],
-["Mountain Climbers","4x20"]
-]],
-
-w3:["Workout 3 – Upper Body",[
+["Squats","4x12"]
+]
+},
+w3:{
+name:"Workout 3",
+ex:[
 ["Dumbbell Press","3x8-12"],
-["Row","4x8-12"],
-["Lateral Raise","3x12"],
-["Biceps Curl","3x10"]
-]],
-
-w4:["Workout 4 – Recovery",[
-["Steps","8000-12000"],
-["Stretching","Light"]
-]],
-
-w5:["Workout 5 – Full Body B",[
+["Rows","4x8-12"]
+]
+},
+w4:{
+name:"Workout 4",
+ex:[
+["Steps","8000-12000"]
+]
+},
+w5:{
+name:"Workout 5",
+ex:[
 ["Squat","4x8-12"],
-["Bench Press","4x8-10"],
-["Lat Pulldown","3x8-12"]
-]],
-
-w6:["Workout 6 – HIIT",[
+["Bench Press","4x8-10"]
+]
+},
+w6:{
+name:"Workout 6",
+ex:[
 ["Burpees","5x10"],
-["Squats","5x15"],
-["Push-ups","5x10"]
-]]
+["Pushups","5x10"]
+]
+}
 };
 
-function switchTab(s,e){
-document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));
-document.getElementById(s).classList.add("active");
+function switchTab(id){
+document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+document.getElementById(id).classList.add("active");
 
-document.querySelectorAll(".nav-item").forEach(n=>n.classList.remove("active"));
-if(e) e.currentTarget.classList.add("active");
-
-if(s==="progress") renderProgress();
+if(id==="progress") renderProgress();
 }
+
+Object.keys(workouts).forEach(k=>{
+let w=workouts[k];
+document.getElementById("workoutList").innerHTML+=`
+<div class="card" onclick="openWorkout('${k}')">
+${w.name}
+</div>`;
+});
 
 function openWorkout(id){
 switchTab("detail");
+
 let w=workouts[id];
-document.getElementById("wtitle").innerText=w[0];
+document.getElementById("wtitle").innerText=w.name;
 
 let box=document.getElementById("exList");
 box.innerHTML="";
 
-w[1].forEach(ex=>{
+w.ex.forEach(e=>{
 box.innerHTML+=`
-<div class="exercise">
-<b>${ex[0]}</b><br>${ex[1]}
-<div>
-<button class="btn learn" onclick="learn('${ex[0]}')">Learn</button>
-<button class="btn demo" onclick="demo('${ex[0]}')">Demo</button>
-<button class="btn done" onclick="logEx('${id}','${ex[0]}')">Log</button>
-</div>
+<div class="card">
+<b>${e[0]}</b><br>${e[1]}
+<br><br>
+<button onclick="logEx('${id}','${e[0]}')">Log</button>
+<button onclick="learn('${e[0]}')">Learn</button>
+<button onclick="demo('${e[0]}')">Demo</button>
+<button onclick="chart('${e[0]}')">Chart</button>
 </div>`;
 });
 }
 
 function logEx(w,e){
-let k=w+"_"+e;
-if(!exerciseLog[k]) exerciseLog[k]=[];
+let key=w+"_"+e;
 let v=prompt("reps x weight");
-if(v){
-exerciseLog[k].push(v);
-localStorage.setItem("ex",JSON.stringify(exerciseLog));
-}
+if(!log[key]) log[key]=[];
+log[key].push(v);
+
+progress.done++;
+history.push(e);
+
+localStorage.setItem("l",JSON.stringify(log));
+localStorage.setItem("p",JSON.stringify(progress));
+localStorage.setItem("h",JSON.stringify(history));
 }
 
 function learn(x){
-document.getElementById("modalText").innerText=x+" explained (basic form guide)";
-document.getElementById("modal").classList.remove("hidden");
+alert(x+" explanation guide");
 }
 
 function demo(x){
-window.open("https://youtube.com/results?search_query="+x,"_blank");
+window.open("https://youtube.com/results?search_query="+x);
 }
 
-function closeModal(){
-document.getElementById("modal").classList.add("hidden");
+/* REST TIMER */
+let t;
+function startRest(s){
+let c=document.getElementById("timerCanvas");
+let ctx=c.getContext("2d");
+let time=s;
+
+function draw(){
+ctx.clearRect(0,0,120,120);
+ctx.beginPath();
+ctx.arc(60,60,40,0,Math.PI*2);
+ctx.strokeStyle="#eee";
+ctx.stroke();
+
+ctx.beginPath();
+ctx.arc(60,60,40,-Math.PI/2,(Math.PI*2*(time/s))-Math.PI/2);
+ctx.strokeStyle="#2563eb";
+ctx.stroke();
+
+ctx.fillText(time,55,65);
 }
 
+t=setInterval(()=>{
+if(time<=0){clearInterval(t);return;}
+time--;
+draw();
+},1000);
+}
+
+/* PROGRESS */
 function renderProgress(){
 
-document.getElementById("streakCount").innerText=progress.streak;
-document.getElementById("workoutCount").innerText=progress.completed.length;
+document.getElementById("streak").innerText=progress.streak;
+document.getElementById("done").innerText=progress.done;
 
-let list=document.getElementById("historyList");
-list.innerHTML=history.slice(-5).map(h=>`<div class="card">${h}</div>`).join("");
+new Chart(document.getElementById("chart"),{
+type:"bar",
+data:{
+labels:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
+datasets:[{data:[1,2,1,3,2,1,0],backgroundColor:"#2563eb"}]
 }
-
-function saveBody(){
-let v=document.getElementById("bodyWeight").value;
-bodyData[new Date().toDateString()]=v;
-localStorage.setItem("body",JSON.stringify(bodyData));
-}
-
-Object.keys(workouts).forEach(k=>{
-document.getElementById("workoutList").innerHTML+=
-`<div class="card" onclick="openWorkout('${k}')">${workouts[k][0]}</div>`;
 });
+
+/* FAT LOSS */
+let loss = progress.done * 0.05;
+document.getElementById("fat").innerHTML=
+`Weekly: ${loss.toFixed(2)} kg<br>Monthly: ${(loss*4).toFixed(2)} kg`;
+
+/* HISTORY */
+document.getElementById("history").innerHTML =
+history.slice(-5).map(h=>`<div>${h}</div>`).join("");
+}

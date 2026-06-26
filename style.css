@@ -4,13 +4,13 @@ margin:0;
 padding:20px;
 }
 
-.hidden{
-display:none;
-}
-
 button{
 display:block;
 margin:10px 0;
-padding:10px;
+padding:12px;
 width:100%;
+}
+
+.hidden{
+display:none;
 }

@@ -1,30 +1,26 @@
 body {
     margin: 0;
     font-family: Arial;
-    background: #ffffff;
+    background: #fff;
     color: #111;
 }
 
 .screen { display:none; padding:20px; }
 .active { display:block; }
 
-.title {
-    text-align:center;
-    font-size:24px;
-    margin-top:20px;
-}
+h2 { margin-top: 0; }
 
-.workout-icon {
-    width:180px;
-    height:180px;
-    margin:40px auto;
-    background:#f1f5f9;
+.big-icon {
+    width: 180px;
+    height: 180px;
+    margin: 40px auto;
+    background: #f3f4f6;
+    border-radius: 20px;
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
     font-size:40px;
-    border-radius:20px;
     cursor:pointer;
     box-shadow:0 5px 20px rgba(0,0,0,0.1);
 }
@@ -60,37 +56,31 @@ button {
     margin:10px 0;
 }
 
+/* EXERCISE CARD */
 .exercise {
-    background:#f8fafc;
+    background:#f9fafb;
+    border:1px solid #e5e7eb;
     padding:12px;
     margin:10px 0;
     border-radius:12px;
-    border:1px solid #eee;
 }
 
-.exercise-title {
-    font-weight:bold;
-    margin-bottom:5px;
+.exercise-header {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 }
 
-.exercise-meta {
-    font-size:13px;
-    color:#555;
-}
-
-.exercise button {
-    margin-top:8px;
-    padding:6px;
-    font-size:12px;
+.exercise-left {
+    display:flex;
+    align-items:center;
+    gap:10px;
 }
 
 /* MODAL */
 .modal {
     position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
+    inset:0;
     background:rgba(0,0,0,0.6);
     display:flex;
     justify-content:center;
@@ -98,7 +88,7 @@ button {
 }
 
 .modal-content {
-    background:white;
+    background:#fff;
     padding:20px;
     border-radius:12px;
     width:80%;

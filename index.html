@@ -26,14 +26,12 @@
 
 <!-- SELECT -->
 <div id="select" class="screen">
-    <div class="top">
-        <h2>Select Workout</h2>
-        <span onclick="goHome()">⬅</span>
-    </div>
+    <h2>Select Workout</h2>
 
     <select id="workoutSelect"></select>
 
     <button onclick="startWorkout()">Start Workout</button>
+    <button onclick="goHome()">Back</button>
 </div>
 
 <!-- WORKOUT -->
@@ -41,7 +39,7 @@
 
     <div class="top">
         <h2 id="workoutTitle"></h2>
-        <span onclick="finishWorkout()">✔</span>
+        <button onclick="finishWorkout()">Finish</button>
     </div>
 
     <div class="timer" id="timer">00:00</div>
@@ -50,7 +48,7 @@
 
 </div>
 
-<!-- LEARN MODAL -->
+<!-- MODAL -->
 <div id="modal" class="modal hidden">
     <div class="modal-content">
         <h3 id="modalTitle"></h3>

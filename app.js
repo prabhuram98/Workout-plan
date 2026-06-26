@@ -1,6 +1,5 @@
-let progress = JSON.parse(localStorage.getItem("p")) || {streak:0,done:0};
-let history = JSON.parse(localStorage.getItem("h")) || [];
-let logs = JSON.parse(localStorage.getItem("l")) || {};
+let logs = JSON.parse(localStorage.getItem("logs")) || [];
+let streak = 0;
 
 const workouts = {
 w1:{name:"Workout 1",ex:[
@@ -9,19 +8,19 @@ w1:{name:"Workout 1",ex:[
 ["Lat Pulldown","4x8-12"]
 ]},
 w2:{name:"Workout 2",ex:[
-["Incline Walk","25-35 min"],
+["Incline Walk","25 min"],
 ["Squats","4x12"]
 ]},
 w3:{name:"Workout 3",ex:[
-["Dumbbell Press","3x8-12"],
-["Rows","4x8-12"]
+["Dumbbell Press","3x10"],
+["Rows","4x10"]
 ]},
 w4:{name:"Workout 4",ex:[
-["Steps","8000-12000"]
+["Steps","8000"]
 ]},
 w5:{name:"Workout 5",ex:[
-["Squat","4x8-12"],
-["Bench Press","4x8-10"]
+["Squat","4x10"],
+["Bench Press","4x8"]
 ]},
 w6:{name:"Workout 6",ex:[
 ["Burpees","5x10"],
@@ -40,7 +39,7 @@ if(id==="progress") render();
 /* LOAD WORKOUTS */
 Object.keys(workouts).forEach(k=>{
 document.getElementById("workoutList").innerHTML +=
-`<div class="card" onclick="openW('${k}')">${workouts[k].name}</div>`;
+`<div class="glass-card" onclick="openW('${k}')">${workouts[k].name}</div>`;
 });
 
 /* OPEN WORKOUT */
@@ -55,69 +54,54 @@ box.innerHTML = "";
 
 w.ex.forEach(e=>{
 box.innerHTML += `
-<div class="card">
-<b>${e[0]}</b><br>${e[1]}<br><br>
-
-<button onclick="logEx('${id}','${e[0]}')">Log</button>
-<button onclick="learn('${e[0]}')">Learn</button>
-<button onclick="demo('${e[0]}')">Demo</button>
+<div class="glass-card">
+<b>${e[0]}</b><br>${e[1]}
+<br>
+<button onclick="log('${e[0]}')">Log</button>
 </div>`;
 });
 }
 
 /* LOG */
-function logEx(w,e){
-let key = w+"_"+e;
-
-let v = prompt("Enter reps x weight");
-
-if(!logs[key]) logs[key] = [];
-
-if(v){
-logs[key].push(v);
-progress.done++;
-history.push(e);
-
-localStorage.setItem("l",JSON.stringify(logs));
-localStorage.setItem("p",JSON.stringify(progress));
-localStorage.setItem("h",JSON.stringify(history));
-}
+function log(ex){
+logs.push(ex);
+localStorage.setItem("logs",JSON.stringify(logs));
+alert("Saved ✔");
 }
 
-/* LEARN + DEMO */
-function learn(x){
-alert(x + " form explanation");
-}
-
-function demo(x){
-window.open("https://youtube.com/results?search_query="+x);
-}
-
-/* TIMER */
+/* TIMER (CIRCLE) */
 let t;
-function startRest(s){
-let c=document.getElementById("timerCanvas");
+function startTimer(s){
+let c=document.getElementById("circle");
 let ctx=c.getContext("2d");
 let time=s;
+
+clearInterval(t);
 
 function draw(){
 ctx.clearRect(0,0,120,120);
 
 ctx.beginPath();
 ctx.arc(60,60,40,0,Math.PI*2);
-ctx.strokeStyle="#eee";
+ctx.strokeStyle="#e5e7eb";
+ctx.lineWidth=10;
 ctx.stroke();
 
 ctx.beginPath();
 ctx.arc(60,60,40,-Math.PI/2,(Math.PI*2*(time/s))-Math.PI/2);
 ctx.strokeStyle="#2563eb";
+ctx.lineWidth=10;
 ctx.stroke();
 
-ctx.fillText(time,55,65);
+ctx.font="16px Arial";
+ctx.fillText(time,50,65);
 }
 
 t=setInterval(()=>{
-if(time<=0){clearInterval(t);return;}
+if(time<=0){
+clearInterval(t);
+return;
+}
 time--;
 draw();
 },1000);
@@ -126,30 +110,19 @@ draw();
 /* PROGRESS */
 function render(){
 
-document.getElementById("streak").innerText = progress.streak;
-document.getElementById("done").innerText = progress.done;
+document.getElementById("count").innerText = logs.length;
 
-/* CHART */
-new Chart(document.getElementById("chart"),{
-type:"bar",
-data:{
-labels:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
-datasets:[{data:[1,2,1,3,2,1,0],backgroundColor:"#2563eb"}]
-}
-});
+/* streak (simple) */
+streak = Math.min(logs.length, 30);
+document.getElementById("streak").innerText = streak;
 
-/* FAT LOSS */
-let loss = progress.done * 0.05;
-document.getElementById("fat").innerHTML =
-`Weekly: ${loss.toFixed(2)} kg`;
-
-/* HISTORY */
+/* history */
 document.getElementById("history").innerHTML =
-history.slice(-6).map(h=>`<div>${h}</div>`).join("");
+logs.slice(-8).map(l=>`<div>${l}</div>`).join("");
 
-/* EXERCISE PROGRESS */
-document.getElementById("exProgress").innerHTML =
-Object.keys(logs).slice(-5).map(k=>{
-return `<div>${k} → ${logs[k].length} logs</div>`;
-}).join("");
+/* simple bar chart */
+document.getElementById("barChart").innerHTML =
+`<div class="glass-card">
+Progress Score: ${logs.length * 10}
+</div>`;
 }

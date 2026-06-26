@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workout App</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- HOME -->
+<div id="home" class="screen active">
+    <div class="title">🔥 Fitness App</div>
+
+    <div class="workout-icon" onclick="goSelect()">
+        🏋️
+        <div>Workout</div>
+    </div>
+
+    <div class="info">
+        Today: <span id="today">Workout 1</span><br>
+        Yesterday: <span id="yesterday">None</span>
+    </div>
+</div>
+
+<!-- SELECT -->
+<div id="select" class="screen">
+    <div class="top">
+        <h2>Select Workout</h2>
+        <span onclick="goHome()">⬅</span>
+    </div>
+
+    <select id="workoutSelect"></select>
+
+    <button onclick="startWorkout()">Start Workout</button>
+</div>
+
+<!-- WORKOUT -->
+<div id="workout" class="screen">
+
+    <div class="top">
+        <h2 id="workoutTitle"></h2>
+        <span onclick="finishWorkout()">✔</span>
+    </div>
+
+    <div class="timer" id="timer">00:00</div>
+
+    <div id="list"></div>
+
+</div>
+
+<!-- LEARN MODAL -->
+<div id="modal" class="modal hidden">
+    <div class="modal-content">
+        <h3 id="modalTitle"></h3>
+        <p id="modalText"></p>
+        <button onclick="closeModal()">Close</button>
+    </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

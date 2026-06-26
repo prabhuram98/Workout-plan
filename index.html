@@ -11,28 +11,26 @@
 
 <!-- HOME -->
 <div id="home" class="screen active">
-  <h2 class="title">PRABHU's Trainer</h2>
+  <div class="header">🏋️ PRABHU's Trainer</div>
 
-  <div class="card" onclick="go('workout')">🏋️ Workout</div>
-  <div class="card" onclick="go('progress')">📊 Progress</div>
-
-  <div class="info">
-    🔥 Streak: <span id="streak">0</span> days
+  <div class="grid">
+    <div class="icon-card" onclick="go('workout')">🏋️<br><span>Workout</span></div>
+    <div class="icon-card" onclick="go('progress')">📊<br><span>Progress</span></div>
   </div>
+
+  <div class="info">🔥 Streak: <span id="streak">0</span></div>
 </div>
 
-<!-- WORKOUT LIST -->
+<!-- WORKOUT -->
 <div id="workout" class="screen">
-  <div class="top">
-    <h2>Workout Hub</h2>
-  </div>
+  <div class="top">Workout Hub</div>
   <div id="workoutList"></div>
 </div>
 
 <!-- DETAIL -->
 <div id="detail" class="screen">
   <div class="top">
-    <h2 id="wtitle"></h2>
+    <div id="wtitle"></div>
     <button onclick="saveWorkout()">Save</button>
   </div>
   <div id="exercises"></div>
@@ -40,20 +38,16 @@
 
 <!-- PROGRESS -->
 <div id="progress" class="screen">
-  <div class="top">
-    <h2>Progress</h2>
-  </div>
+  <div class="top">Progress</div>
   <div id="progressBox"></div>
 </div>
 
 <!-- BOTTOM NAV -->
 <div class="bottom-nav">
-  <div onclick="go('home')">🏠<br><span>Home</span></div>
-  <div onclick="go('workout')">🏋️<br><span>Workout</span></div>
-  <div onclick="go('progress')">📊<br><span>Progress</span></div>
+  <div onclick="go('home')">🏠</div>
+  <div onclick="go('workout')">🏋️</div>
+  <div onclick="go('progress')">📊</div>
 </div>
-
-<div class="footer">Built by PR</div>
 
 <script src="app.js"></script>
 </body>

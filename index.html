@@ -1,58 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>PRABHU's Trainer</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRABHU'S TRAINER</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
+<body class="bg-gray-50 text-gray-900 font-sans antialiased min-h-screen flex flex-col justify-between">
 
-<body>
+    <header class="bg-white border-b border-gray-100 py-5 text-center sticky top-0 z-50 shadow-xs">
+        <h1 class="text-xl font-black tracking-widest text-gray-900">PRABHU'S TRAINER</h1>
+    </header>
 
-<!-- HOME -->
-<div id="home" class="screen active">
-  <div class="title">PRABHU's Trainer</div>
+    <main class="max-w-md w-full mx-auto px-4 py-6 flex-grow space-y-6">
+        
+        <div class="grid grid-cols-2 gap-4">
+            <button onclick="switchView('workout-screen')" class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm flex flex-col items-center justify-center text-center gap-3 active:scale-95 transition cursor-pointer group hover:border-red-400">
+                <div class="w-16 h-16 rounded-2xl bg-red-50 flex items-center justify-center transition group-hover:bg-red-100">
+                    <i data-lucide="dumbbell" class="w-8 h-8 text-red-500"></i>
+                </div>
+                <span class="text-lg font-black text-gray-800">Workout</span>
+            </button>
 
-  <div class="home-grid">
-    <div class="big-icon" onclick="go('workout')">
-      🏋️
-      <span>Workout</span>
-    </div>
+            <button onclick="switchView('stats-screen')" class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm flex flex-col items-center justify-center text-center gap-3 active:scale-95 transition cursor-pointer group hover:border-blue-400">
+                <div class="w-16 h-16 rounded-2xl bg-blue-50 flex items-center justify-center transition group-hover:bg-blue-100">
+                    <i data-lucide="bar-chart-3" class="w-8 h-8 text-blue-500"></i>
+                </div>
+                <span class="text-lg font-black text-gray-800">Stats</span>
+            </button>
+        </div>
 
-    <div class="big-icon" onclick="go('diet')">
-      📊
-      <span>Diet</span>
-    </div>
-  </div>
-</div>
+        <hr class="border-gray-200 my-2">
 
-<!-- WORKOUT LIST -->
-<div id="workout" class="screen">
-  <div class="header">Workout Plan</div>
-
-  <div class="card" onclick="openWorkout('w1')">Workout 1 – Full Body A</div>
-  <div class="card" onclick="openWorkout('w2')">Workout 2 – Fat Loss</div>
-  <div class="card" onclick="openWorkout('w3')">Workout 3 – Upper Body</div>
-  <div class="card" onclick="openWorkout('w4')">Workout 4 – Recovery</div>
-  <div class="card" onclick="openWorkout('w5')">Workout 5 – Full Body B</div>
-  <div class="card" onclick="openWorkout('w6')">Workout 6 – HIIT</div>
-</div>
-
-<!-- DETAIL -->
-<div id="detail" class="screen">
-  <div class="header" id="wtitle"></div>
-  <div id="details"></div>
-</div>
-
-<!-- DIET -->
-<div id="diet" class="screen">
-  <div class="header">Diet Plan</div>
-
-  <div class="card">🥚 Eggs, Greek Yogurt, Paneer, Tofu</div>
-  <div class="card">🍽️ 1900–2100 calories</div>
-  <div class="card">🚫 Avoid alcohol, sugar drinks, fried food</div>
-</div>
-
-<script src="app.js"></script>
-</body>
-</html>
+        <section id="workout-screen" class="space-y-4">
+            <div class="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm space-y-4">
+                <label class="block text-sm font-black text-gray-400 uppercase tracking-wider">Select Today's Routine</label>
+                
+                <select id="workout-selector" onchange="renderWorkoutDetails()" class="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl font-bold text-gray-800 focus:outline-hidden focus:ring-2 focus:ring-red-400 focus:bg-white appearance-none cursor-pointer">
+                    <option value="">-- Tap to Select Workout Routine --</option>
+                    <option value="day1">🔴 DAY 1 –

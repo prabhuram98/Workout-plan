@@ -1,89 +1,16 @@
 body{
+font-family:Arial;
 margin:0;
-font-family:-apple-system;
-background:#f2f2f7;
-color:#111;
-overflow:hidden;
+padding:20px;
 }
 
-/* TOP BAR */
-.topbar{
-position:fixed;
-top:0;
-left:0;
-right:0;
-height:50px;
-display:flex;
-align-items:center;
-background:white;
-border-bottom:1px solid #ddd;
-z-index:10;
-}
-
-#backBtn{
-width:50px;
-text-align:center;
-font-size:22px;
-cursor:pointer;
-}
-
-.title{
-flex:1;
-text-align:center;
-font-weight:600;
-}
-
-/* SCREEN */
-.screen{
+.hidden{
 display:none;
-padding:70px 15px 20px;
-height:100vh;
 }
 
-.screen.active{
-display:block;
-}
-
-/* BIG ICON HOME */
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
-margin-top:20px;
-}
-
-.big{
-background:white;
-padding:40px;
-border-radius:18px;
-text-align:center;
-font-size:18px;
-font-weight:600;
-box-shadow:0 6px 15px rgba(0,0,0,0.08);
-}
-
-/* CARD */
-.card{
-background:white;
-padding:15px;
-border-radius:12px;
-margin:10px 0;
-}
-
-/* BUTTON */
 button{
-background:#007aff;
-color:white;
-border:none;
-padding:12px;
-border-radius:10px;
+display:block;
+margin:10px 0;
+padding:10px;
 width:100%;
-margin-top:10px;
-}
-
-/* SELECT */
-select{
-width:100%;
-padding:12px;
-border-radius:10px;
 }

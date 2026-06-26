@@ -1,177 +1,93 @@
-const workouts = {
-"Workout 1":{
-title:"Full Body A",
-exercises:[
-{name:"Leg Press",sets:4,rep:"8-12"},
-{name:"Chest Press",sets:4,rep:"8-12"},
-{name:"Lat Pulldown",sets:4,rep:"8-12"},
-{name:"Shoulder Press",sets:3,rep:"8-10"},
-{name:"Plank",sets:3,rep:"60 sec"},
-{name:"Cable Crunch",sets:3,rep:"12-15"}
-]
-},
-
-"Workout 2":{
-title:"Fat Loss",
-exercises:[
-{name:"Incline Walk",sets:1,rep:"25-35 min"},
-{name:"Squats",sets:4,rep:"12"},
-{name:"Push-ups",sets:4,rep:"10"},
-{name:"Mountain Climbers",sets:4,rep:"20"},
-{name:"Plank",sets:4,rep:"30 sec"}
-]
-},
-
-"Workout 3":{
-title:"Upper Body",
-exercises:[
-{name:"Incline Dumbbell Press",sets:3,rep:"8-12"},
-{name:"Seated Row",sets:4,rep:"8-12"},
-{name:"Lateral Raises",sets:3,rep:"12-15"},
-{name:"Lat Pulldown",sets:3,rep:"8-12"},
-{name:"Biceps Curl",sets:3,rep:"10-12"},
-{name:"Triceps Pushdown",sets:3,rep:"10-12"}
-]
-},
-
-"Workout 4":{
-title:"Recovery",
-exercises:[
-{name:"Steps",sets:1,rep:"8000-12000"},
-{name:"Stretching",sets:1,rep:"light"},
-{name:"Easy Walk",sets:1,rep:"20-30 min"}
-]
-},
-
-"Workout 5":{
-title:"Full Body B",
-exercises:[
-{name:"Squat",sets:4,rep:"8-12"},
-{name:"Bench Press",sets:4,rep:"8-10"},
-{name:"Lat Pulldown",sets:3,rep:"8-12"},
-{name:"Shoulder Press",sets:3,rep:"8-10"},
-{name:"Hanging Knee Raises",sets:3,rep:"10-15"}
-]
-},
-
-"Workout 6":{
-title:"HIIT",
-exercises:[
-{name:"Burpees",sets:5,rep:"10"},
-{name:"Squats",sets:5,rep:"15"},
-{name:"Push-ups",sets:5,rep:"10"},
-{name:"Plank",sets:5,rep:"30-40 sec"}
-]
-}
-};
-
-let current=null;
-let history=JSON.parse(localStorage.getItem("history"))||[];
-let streak=JSON.parse(localStorage.getItem("streak"))||{count:0,last:null};
-
 function go(id){
 document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
 document.getElementById(id).classList.add("active");
-
-if(id==="workout") renderWorkouts();
-if(id==="progress") renderProgress();
-if(id==="home") updateStreak();
 }
 
-function updateStreak(){
-document.getElementById("streak").innerText=streak.count;
+const workouts = {
+
+w1:{
+title:"Workout 1 – Full Body A",
+data:[
+["Leg Press","4 x 8–12"],
+["Chest Press","4 x 8–12"],
+["Lat Pulldown","4 x 8–12"],
+["Shoulder Press","3 x 8–10"],
+["Plank","3 x 60 sec"],
+["Cable Crunch","3 x 12–15"],
+["Incline Walk","10 min"]
+]
+},
+
+w2:{
+title:"Workout 2 – Fat Loss",
+data:[
+["Incline Walk","25–35 min"],
+["Squats","4 x 12"],
+["Push-ups","4 x 10"],
+["Mountain Climbers","4 x 20"],
+["Plank","4 x 30 sec"]
+]
+},
+
+w3:{
+title:"Workout 3 – Upper Body",
+data:[
+["Incline Dumbbell Press","3 x 8–12"],
+["Seated Row","4 x 8–12"],
+["Lateral Raises","3 x 12–15"],
+["Lat Pulldown","3 x 8–12"],
+["Biceps Curl","3 x 10–12"],
+["Triceps Pushdown","3 x 10–12"]
+]
+},
+
+w4:{
+title:"Workout 4 – Recovery",
+data:[
+["Steps","8000–12000"],
+["Stretching","Light"],
+["Easy Walk","20–30 min"]
+]
+},
+
+w5:{
+title:"Workout 5 – Full Body B",
+data:[
+["Squat / Leg Press","4 x 8–12"],
+["Bench Press","4 x 8–10"],
+["Lat Pulldown","3 x 8–12"],
+["Shoulder Press","3 x 8–10"],
+["Hanging Knee Raises","3 x 10–15"]
+]
+},
+
+w6:{
+title:"Workout 6 – HIIT",
+data:[
+["Burpees","5 x 10"],
+["Squats","5 x 15"],
+["Push-ups","5 x 10"],
+["Plank","5 x 30–40 sec"]
+]
 }
-
-function renderWorkouts(){
-let box=document.getElementById("workoutList");
-box.innerHTML="";
-
-Object.keys(workouts).forEach(w=>{
-let div=document.createElement("div");
-div.className="workout-card";
-div.innerText=w;
-div.onclick=()=>openWorkout(w);
-box.appendChild(div);
-});
-}
-
-function openWorkout(name){
-current=name;
-go("detail");
-
-document.getElementById("wtitle").innerText=workouts[name].title;
-
-let box=document.getElementById("exercises");
-box.innerHTML="";
-
-workouts[name].exercises.forEach(ex=>{
-
-let html=`<div class="exercise"><h3>${ex.name}</h3>`;
-
-for(let i=1;i<=ex.sets;i++){
-html+=`
-<div class="set-row">
-<span>Set ${i}</span>
-<span>Rec ${ex.rep}</span>
-<input id="${ex.name}-${i}" placeholder="0">
-</div>`;
-}
-
-html+=`</div>`;
-box.innerHTML+=html;
-});
-}
-
-function saveWorkout(){
-
-let session={
-workout:current,
-date:new Date().toDateString(),
-exercises:[]
 };
 
-let today=new Date().toDateString();
+function openWorkout(id){
+go("detail");
 
-if(streak.last!==today){
-let diff=Math.floor((new Date(today)-new Date(streak.last||today))/(1000*60*60*24));
-if(diff===1) streak.count++;
-else streak.count=1;
-streak.last=today;
-localStorage.setItem("streak",JSON.stringify(streak));
-}
+document.getElementById("wtitle").innerText = workouts[id].title;
 
-workouts[current].exercises.forEach(ex=>{
-let sets=[];
-for(let i=1;i<=ex.sets;i++){
-let v=document.getElementById(`${ex.name}-${i}`).value||0;
-sets.push(Number(v));
-}
-session.exercises.push({name:ex.name,planned:ex.rep,actual:sets});
-});
+let box = document.getElementById("details");
+box.innerHTML = "";
 
-history.push(session);
-localStorage.setItem("history",JSON.stringify(history));
-
-alert("Saved ✔");
-go("home");
-}
-
-function renderProgress(){
-let box=document.getElementById("progressBox");
-box.innerHTML=`<div class="workout-card">🔥 Streak: ${streak.count}</div>`;
-
-history.slice().reverse().forEach(h=>{
-let div=document.createElement("div");
-div.className="workout-card";
-div.innerHTML=`<b>${h.workout}</b><br>${h.date}<br><br>`;
-
-h.exercises.forEach(e=>{
-let avg=e.actual.reduce((a,b)=>a+b,0)/e.actual.length;
-div.innerHTML+=`${e.name} → Avg ${avg.toFixed(1)}<br>`;
-});
-
-box.appendChild(div);
+workouts[id].data.forEach(item=>{
+box.innerHTML += `
+<div class="exercise">
+<div class="set">
+<b>${item[0]}</b>
+<span>${item[1]}</span>
+</div>
+</div>
+`;
 });
 }
-
-updateStreak();

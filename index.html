@@ -4,8 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PRABHU's Trainer</title>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -13,67 +11,58 @@
 
 <!-- HOME -->
 <div id="home" class="screen active">
-  <div class="home">
+  <div class="glass-header">
     <h1>PRABHU's Trainer</h1>
-
-    <div class="grid">
-      <div class="card" onclick="go('workouts')">🏋️ Workouts</div>
-      <div class="card" onclick="go('diet')">🍽️ Diet</div>
-      <div class="card" onclick="go('progress')">📊 Progress</div>
-    </div>
-
-    <div class="footer">Developed By PR</div>
+    <p>Train Smart • Stay Consistent</p>
   </div>
+
+  <div class="grid">
+    <div class="glass-card" onclick="go('workouts')">🏋️ Workout</div>
+    <div class="glass-card" onclick="go('diet')">🍽️ Diet</div>
+    <div class="glass-card" onclick="go('progress')">📊 Progress</div>
+  </div>
+
+  <div class="footer">Developed By PR</div>
 </div>
 
 <!-- WORKOUT LIST -->
 <div id="workouts" class="screen">
-  <h2>Workouts</h2>
+  <div class="header">Workout Plan</div>
   <div id="workoutList"></div>
 </div>
 
-<!-- WORKOUT DETAIL -->
+<!-- DETAIL -->
 <div id="detail" class="screen">
-  <h2 id="wtitle"></h2>
+  <div class="header" id="wtitle"></div>
   <div id="exList"></div>
 
   <div class="timer">
-    <canvas id="timerCanvas" width="120" height="120"></canvas>
-    <button onclick="startRest(60)">Rest Timer</button>
+    <canvas id="circle" width="120" height="120"></canvas>
+    <button onclick="startTimer(60)">Start Rest</button>
   </div>
 </div>
 
 <!-- DIET -->
 <div id="diet" class="screen">
-  <h2>Diet</h2>
-  <div class="card">Calories: 1900–2100</div>
-  <div class="card">Protein: 100–130g</div>
+  <div class="header">Diet</div>
+  <div class="glass-card">Calories: 1900–2100</div>
+  <div class="glass-card">Protein: 100–130g</div>
 </div>
 
 <!-- PROGRESS -->
 <div id="progress" class="screen">
-  <h2>Progress</h2>
+  <div class="header">Progress</div>
 
   <div class="stats">
-    <div class="card">🔥 Streak: <span id="streak"></span></div>
-    <div class="card">✔ Done: <span id="done"></span></div>
+    <div class="glass-card">🔥 Logs: <span id="count"></span></div>
+    <div class="glass-card">📅 Streak: <span id="streak"></span></div>
   </div>
 
-  <canvas id="chart"></canvas>
+  <div id="barChart"></div>
 
-  <div class="card">
-    <h3>Fat Loss Prediction</h3>
-    <div id="fat"></div>
-  </div>
-
-  <div class="card">
-    <h3>History</h3>
+  <div class="glass-card">
+    <h3>Recent Activity</h3>
     <div id="history"></div>
-  </div>
-
-  <div class="card">
-    <h3>Exercise Progress</h3>
-    <div id="exProgress"></div>
   </div>
 </div>
 

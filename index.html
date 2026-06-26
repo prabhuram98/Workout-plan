@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Workout App</title>
+<title>Fitness App</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -11,50 +11,42 @@
 
 <!-- HOME -->
 <div id="home" class="screen active">
-    <h2>🔥 Fitness App</h2>
+    <h1 class="title">Fitness App</h1>
 
-    <div class="big-icon" onclick="goSelect()">
-        🏋️
-        <div>Workout</div>
-    </div>
-
-    <div class="info">
-        Today: <span id="today">Workout 1</span><br>
-        Yesterday: <span id="yesterday">None</span>
+    <div class="grid">
+        <div class="card big" onclick="openWorkoutHub()">🏋️ Workout</div>
+        <div class="card big" onclick="openProgress()">📊 Progress</div>
     </div>
 </div>
 
-<!-- SELECT -->
-<div id="select" class="screen">
-    <h2>Select Workout</h2>
+<!-- WORKOUT HUB -->
+<div id="workoutHub" class="screen">
+    <div class="top">
+        <h2>Workout Hub</h2>
+        <button onclick="goHome()">Back</button>
+    </div>
 
-    <select id="workoutSelect"></select>
-
-    <button onclick="startWorkout()">Start Workout</button>
-    <button onclick="goHome()">Back</button>
+    <div id="workoutList"></div>
 </div>
 
-<!-- WORKOUT -->
-<div id="workout" class="screen">
-
+<!-- WORKOUT DETAIL -->
+<div id="workoutDetail" class="screen">
     <div class="top">
         <h2 id="workoutTitle"></h2>
-        <button onclick="finishWorkout()">Finish</button>
+        <button onclick="saveWorkout()">Save</button>
     </div>
 
-    <div class="timer" id="timer">00:00</div>
-
-    <div id="list"></div>
-
+    <div id="exerciseList"></div>
 </div>
 
-<!-- MODAL -->
-<div id="modal" class="modal hidden">
-    <div class="modal-content">
-        <h3 id="modalTitle"></h3>
-        <p id="modalText"></p>
-        <button onclick="closeModal()">Close</button>
+<!-- PROGRESS -->
+<div id="progress" class="screen">
+    <div class="top">
+        <h2>Progress</h2>
+        <button onclick="goHome()">Back</button>
     </div>
+
+    <div id="progressData"></div>
 </div>
 
 <script src="app.js"></script>

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Fitness App</title>
 <link rel="stylesheet" href="style.css">
 </head>
@@ -11,42 +11,49 @@
 
 <!-- HOME -->
 <div id="home" class="screen active">
-    <h1 class="title">Fitness App</h1>
+  <h2 class="title">Fitness App</h2>
 
-    <div class="grid">
-        <div class="card big" onclick="openWorkoutHub()">🏋️ Workout</div>
-        <div class="card big" onclick="openProgress()">📊 Progress</div>
-    </div>
+  <div class="card" onclick="go('workout')">🏋️ Workout</div>
+  <div class="card" onclick="go('progress')">📊 Progress</div>
+
+  <div class="info">
+    🔥 Streak: <span id="streak">0</span> days
+  </div>
 </div>
 
-<!-- WORKOUT HUB -->
-<div id="workoutHub" class="screen">
-    <div class="top">
-        <h2>Workout Hub</h2>
-        <button onclick="goHome()">Back</button>
-    </div>
+<!-- WORKOUT LIST -->
+<div id="workout" class="screen">
 
-    <div id="workoutList"></div>
+  <div class="top">
+    <h2>Workout Hub</h2>
+    <button onclick="go('home')">Back</button>
+  </div>
+
+  <div id="workoutList"></div>
 </div>
 
 <!-- WORKOUT DETAIL -->
-<div id="workoutDetail" class="screen">
-    <div class="top">
-        <h2 id="workoutTitle"></h2>
-        <button onclick="saveWorkout()">Save</button>
-    </div>
+<div id="detail" class="screen">
 
-    <div id="exerciseList"></div>
+  <div class="top">
+    <h2 id="wtitle"></h2>
+    <button onclick="saveWorkout()">Save</button>
+  </div>
+
+  <div id="exercises"></div>
+
 </div>
 
 <!-- PROGRESS -->
 <div id="progress" class="screen">
-    <div class="top">
-        <h2>Progress</h2>
-        <button onclick="goHome()">Back</button>
-    </div>
 
-    <div id="progressData"></div>
+  <div class="top">
+    <h2>Progress</h2>
+    <button onclick="go('home')">Back</button>
+  </div>
+
+  <div id="progressBox"></div>
+
 </div>
 
 <script src="app.js"></script>

@@ -3,58 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PRABHU Trainer</title>
+<title>Trainer</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div id="app">
+<h1>PRABHU Trainer</h1>
 
-<!-- TOP BAR -->
-<div class="topbar">
-  <div id="backBtn" onclick="back()">←</div>
-  <div class="title">PRABHU Trainer</div>
+<div id="home">
+  <button onclick="show('workouts')">Workouts</button>
+  <button onclick="show('diet')">Diet</button>
+  <button onclick="show('progress')">Progress</button>
 </div>
 
-<!-- HOME -->
-<section class="screen active" id="home">
+<div id="workouts" class="page hidden"></div>
 
-  <div class="grid">
-    <div class="big" onclick="go('workoutSelect')">🏋️ Workout</div>
-    <div class="big" onclick="go('diet')">🍽️ Diet</div>
-    <div class="big" onclick="go('progress')">📊 Progress</div>
-  </div>
+<div id="detail" class="page hidden">
+  <h2 id="title"></h2>
+  <div id="ex"></div>
+  <button onclick="show('workouts')">Back</button>
+</div>
 
-  <div class="footer">Developed By PR</div>
-</section>
+<div id="diet" class="page hidden">
+  <h2>Diet</h2>
+</div>
 
-<!-- WORKOUT SELECT -->
-<section class="screen" id="workoutSelect">
-  <h2>Select Today’s Workout</h2>
-
-  <select id="todayWorkout"></select>
-  <button onclick="openWorkoutFromSelect()">Continue</button>
-</section>
-
-<!-- WORKOUT DETAIL -->
-<section class="screen" id="workoutDetail">
-  <h2 id="wtitle"></h2>
-  <div id="exercises"></div>
-</section>
-
-<!-- DIET -->
-<section class="screen" id="diet">
-  <h2>Diet Plan</h2>
-  <div class="card">Calories: 1900–2100</div>
-</section>
-
-<!-- PROGRESS -->
-<section class="screen" id="progress">
+<div id="progress" class="page hidden">
   <h2>Progress</h2>
   <div id="stats"></div>
-</section>
-
 </div>
 
 <script src="app.js"></script>

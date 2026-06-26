@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>PRABHU's Trainer</title>
 
 <link rel="stylesheet" href="style.css">
@@ -13,106 +13,75 @@
 
 <!-- HOME -->
 <div id="home" class="screen active">
-  <div class="home-container">
-
-    <div class="app-title">PRABHU's Trainer</div>
-    <div class="subtitle">Train Smart. Stay Consistent.</div>
+  <div class="home">
+    <h1>PRABHU's Trainer</h1>
 
     <div class="grid">
-      <div class="glass-card" onclick="switchTab('workouts')">🏋️ Workout</div>
-      <div class="glass-card" onclick="switchTab('diet')">🍽️ Diet</div>
+      <div class="card" onclick="switchTab('workouts')">🏋️ Workout</div>
+      <div class="card" onclick="switchTab('diet')">🍽️ Diet</div>
+      <div class="card" onclick="switchTab('progress')">📊 Progress</div>
     </div>
 
-    <div class="footer-credit">Developed By PR</div>
+    <div class="footer">Developed By PR</div>
   </div>
 </div>
 
-<!-- WORKOUTS -->
+<!-- WORKOUT LIST -->
 <div id="workouts" class="screen">
-  <div class="header">Workout Plan</div>
+  <h2>Workouts</h2>
   <div id="workoutList"></div>
 </div>
 
-<!-- DETAIL -->
+<!-- WORKOUT DETAIL -->
 <div id="detail" class="screen">
-  <div class="header" id="wtitle"></div>
+  <h2 id="wtitle"></h2>
   <div id="exList"></div>
+
+  <div class="timer">
+    <canvas id="timerCanvas" width="120" height="120"></canvas>
+    <button onclick="startRest(60)">Start Rest</button>
+  </div>
 </div>
 
 <!-- DIET -->
 <div id="diet" class="screen">
-  <div class="header">Diet Plan</div>
+  <h2>Diet</h2>
   <div class="card">Calories: 1900–2100</div>
   <div class="card">Protein: 100–130g</div>
-  <div class="card">Eggs, Paneer, Tofu, Yogurt</div>
 </div>
 
 <!-- PROGRESS -->
 <div id="progress" class="screen">
 
-  <div class="header">Progress</div>
+<h2>Progress</h2>
 
-  <div class="stats">
-    <div class="stat-card">
-      🔥 Streak
-      <div class="stat-value" id="streakCount">0</div>
-    </div>
+<div class="stats">
+  <div class="card">🔥 Streak: <span id="streak"></span></div>
+  <div class="card">✔ Done: <span id="done"></span></div>
+</div>
 
-    <div class="stat-card">
-      ✔ Workouts
-      <div class="stat-value" id="workoutCount">0</div>
-    </div>
-  </div>
+<div class="card">
+<canvas id="chart"></canvas>
+</div>
 
-  <div class="chart-box">
-    <div class="chart-title">Weekly Progress</div>
-    <canvas id="weeklyChart"></canvas>
-  </div>
+<div class="card">
+<h3>Fat Loss Prediction</h3>
+<div id="fat"></div>
+</div>
 
-  <div class="chart-box">
-    <div class="chart-title">History</div>
-    <div id="historyList"></div>
-  </div>
-
-  <div class="chart-box">
-    <div class="chart-title">Body Tracker</div>
-    <input id="bodyWeight" placeholder="Enter weight (kg)">
-    <button onclick="saveBody()">Save</button>
-    <div id="bodyHistory"></div>
-  </div>
-
-  <div class="chart-box">
-    <div class="chart-title">Achievements</div>
-    <div id="achievements"></div>
-  </div>
-
-  <div class="chart-box">
-    <div class="chart-title">Calendar</div>
-    <div id="calendarView"></div>
-  </div>
+<div class="card">
+<h3>History</h3>
+<div id="history"></div>
+</div>
 
 </div>
 
-<!-- TIMER -->
-<div class="timer-box">
-  <canvas id="timerCanvas" width="120" height="120"></canvas>
-  <button onclick="startRest(60)">Start Rest</button>
-</div>
-
-<!-- MODAL -->
-<div id="modal" class="modal hidden">
-  <div class="modal-content">
-    <div id="modalText"></div>
-    <button onclick="closeModal()">Close</button>
-  </div>
-</div>
-
-<!-- BOTTOM NAV -->
-<div class="bottom-nav">
-  <div class="nav-item active" onclick="switchTab('home',event)">🏠<span>Home</span></div>
-  <div class="nav-item" onclick="switchTab('workouts',event)">🏋️<span>Workout</span></div>
-  <div class="nav-item" onclick="switchTab('diet',event)">🍽️<span>Diet</span></div>
-  <div class="nav-item" onclick="switchTab('progress',event)">📊<span>Progress</span></div>
+<!-- NAV -->
+<div class="nav">
+  <button onclick="switchTab('home')">Home</button>
+  <button onclick="switchTab('workouts')">Workout</button>
+  <button onclick="switchTab('diet')">Diet</button>
+  <button onclick="switchTab('progress')">Progress</button>
 </div>
 
 <script src="app.js"></script>

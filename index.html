@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PRABHU's Trainer</title>
+<title>PRABHU Trainer</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -13,15 +13,15 @@
 
 <!-- HOME -->
 <section id="home" class="screen active">
-  <h1>PRABHU's Trainer</h1>
+  <h1>PRABHU Trainer</h1>
 
-  <div class="grid">
-    <div class="card" data-go="workouts">🏋️ Workout</div>
+  <div class="menu">
+    <div class="card" data-go="workouts">🏋️ Workouts</div>
     <div class="card" data-go="diet">🍽️ Diet</div>
     <div class="card" data-go="progress">📊 Progress</div>
   </div>
 
-  <div class="footer">Developed By PR</div>
+  <p class="footer">Developed By PR</p>
 </section>
 
 <!-- WORKOUTS -->
@@ -32,13 +32,9 @@
 
 <!-- DETAIL -->
 <section id="detail" class="screen">
-  <h2 id="title"></h2>
-  <div id="exercises"></div>
-
-  <div class="timer">
-    <canvas id="timerCanvas" width="140" height="140"></canvas>
-    <button id="timerBtn">Start Rest</button>
-  </div>
+  <h2 id="workoutTitle"></h2>
+  <div id="exerciseList"></div>
+  <button onclick="go('workouts')">Back</button>
 </section>
 
 <!-- DIET -->
@@ -46,18 +42,18 @@
   <h2>Diet</h2>
   <div class="card">Calories: 1900–2100</div>
   <div class="card">Protein: 100–130g</div>
+  <button onclick="go('home')">Back</button>
 </section>
 
 <!-- PROGRESS -->
 <section id="progress" class="screen">
   <h2>Progress</h2>
-
   <div class="card" id="stats"></div>
-  <div class="card" id="history"></div>
+  <button onclick="go('home')">Back</button>
 </section>
 
 </div>
 
-<script src="app.js" defer></script>
+<script src="app.js"></script>
 </body>
 </html>

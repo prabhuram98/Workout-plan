@@ -1,9 +1,9 @@
 const workouts = [
 {
-title: "workout 1 – FULL BODY A (STRENGTH BASE)",
-ex: [
+title:"Workout 1 – FULL BODY A",
+ex:[
 "Leg press — 4×8–12",
-"Chest press (machine or dumbbell) — 4×8–12",
+"Chest press — 4×8–12",
 "Lat pulldown — 4×8–12",
 "Shoulder press — 3×8–10",
 "Plank — 3×60 sec",
@@ -12,73 +12,70 @@ ex: [
 ]
 },
 {
-title: "workout 2 – FAT LOSS + CONDITIONING",
-ex: [
-"Incline walk — 25–35 min (steady pace)",
-"12 squats",
-"10 push-ups",
-"20 mountain climbers",
-"30 sec plank"
+title:"Workout 2 – FAT LOSS",
+ex:[
+"Incline walk — 25–35 min",
+"Squats",
+"Push-ups",
+"Mountain climbers",
+"Plank"
 ]
 },
 {
-title: "workout 3 – UPPER BODY (MUSCLE BUILD)",
-ex: [
-"Incline dumbbell press — 3×8–12",
-"Seated row — 4×8–12",
-"Lateral raises — 3×12–15",
-"Lat pulldown — 3×8–12",
-"Biceps curls — 3×10–12",
-"Triceps pushdown — 3×10–12",
-"10 min walk"
+title:"Workout 3 – UPPER BODY",
+ex:[
+"Dumbbell press",
+"Seated row",
+"Lateral raises",
+"Lat pulldown",
+"Biceps curls",
+"Triceps pushdown"
 ]
 },
 {
-title: "workout 4 – ACTIVE RECOVERY",
-ex: [
-"8,000–12,000 steps",
-"Light stretching",
-"Optional 20–30 min easy walk"
+title:"Workout 4 – ACTIVE RECOVERY",
+ex:["Walking","Stretching"]
+},
+{
+title:"Workout 5 – FULL BODY B",
+ex:[
+"Squat or leg press",
+"Bench press",
+"Lat pulldown",
+"Shoulder press",
+"Hanging knee raises"
 ]
 },
 {
-title: "workout 5 – FULL BODY B (PROGRESSION DAY)",
-ex: [
-"Squat or leg press — 4×8–12",
-"Bench press — 4×8–10",
-"Lat pulldown — 3×8–12",
-"Shoulder press — 3×8–10",
-"Hanging knee raises — 3×10–15",
-"10–15 min incline walk"
-]
-},
-{
-title: "workout 6 – FAT LOSS INTERVAL DAY",
-ex: [
-"20–25 min brisk incline walk",
-"10 burpees",
-"15 squats",
-"10 push-ups",
-"30–40 sec plank"
+title:"Workout 6 – FAT LOSS INTERVAL",
+ex:[
+"Brisk walk",
+"Burpees",
+"Squats",
+"Push-ups",
+"Plank"
 ]
 }
 ];
 
-let current = null;
-let done = [];
+let current=null;
+let done=[];
+let history=JSON.parse(localStorage.getItem("history"))||[];
+let streak=JSON.parse(localStorage.getItem("streak"))||{count:0,last:null};
+let stats=JSON.parse(localStorage.getItem("stats"))||{};
 
 function openPicker(){
 document.getElementById("picker").classList.remove("hidden");
 
-let list = document.getElementById("workoutList");
-list.innerHTML = "";
+let list=document.getElementById("workoutList");
+list.innerHTML="";
 
 workouts.forEach((w,i)=>{
-let div = document.createElement("div");
-div.className = "sheet-item";
-div.innerText = w.title;
-div.onclick = () => openWorkout(i);
-list.appendChild(div);
+let d=document.createElement("div");
+d.className="sheet-item";
+d.innerText=w.title;
+d.onclick=()=>openWorkout(i);
+list.appendChild(d);
 });
 }
 
@@ -87,35 +84,32 @@ document.getElementById("picker").classList.add("hidden");
 }
 
 function openWorkout(i){
-current = i;
-done = [];
-
+current=i;
+done=[];
 document.getElementById("home").classList.add("hidden");
-document.getElementById("picker").classList.add("hidden");
 document.getElementById("workout").classList.remove("hidden");
-
-document.getElementById("wtitle").innerText = workouts[i].title;
-
+document.getElementById("wtitle").innerText=workouts[i].title;
 render();
 }
 
-function back(){
+function backHome(){
 document.getElementById("workout").classList.add("hidden");
+document.getElementById("progress").classList.add("hidden");
 document.getElementById("home").classList.remove("hidden");
 }
 
 function render(){
-let list = document.getElementById("exList");
-list.innerHTML = "";
+let list=document.getElementById("exList");
+list.innerHTML="";
 
 workouts[current].ex.forEach((e,i)=>{
-let div = document.createElement("div");
-div.className = "ex";
+let div=document.createElement("div");
+div.className="ex";
 
-div.innerHTML = `
+div.innerHTML=`
 <span>${e}</span>
-<div class="circle ${done[i] ? 'done' : ''}" onclick="toggle(${i})">
-${done[i] ? '✓' : ''}
+<div class="circle ${done[i]?'done':''}" onclick="toggle(${i})">
+${done[i]?'✓':''}
 </div>
 `;
 
@@ -126,28 +120,90 @@ updateProgress();
 }
 
 function toggle(i){
-done[i] = !done[i];
+done[i]=!done[i];
+
+let name=workouts[current].ex[i];
+if(done[i]){
+stats[name]=(stats[name]||0)+1;
+localStorage.setItem("stats",JSON.stringify(stats));
+}
+
 render();
 }
 
 function updateProgress(){
-let total = workouts[current].ex.length;
-let count = done.filter(Boolean).length;
+let total=workouts[current].ex.length;
+let count=done.filter(Boolean).length;
 
-let percent = (count/total)*100;
+document.getElementById("progressText").innerText=
+`${count}/${total} completed`;
 
-document.getElementById("progressBar").innerHTML =
-`<div style="width:${percent}%"></div>`;
+document.querySelector("#progressBar div").style.width=
+(count/total)*100+"%";
 
-document.getElementById("progressText").innerText =
-`${count} / ${total} exercises completed`;
-
-document.getElementById("completeBtn").disabled = count !== total;
-document.getElementById("completeBtn").style.opacity =
-count === total ? "1" : "0.5";
+document.getElementById("completeBtn").disabled = count!==total;
+document.getElementById("completeBtn").style.opacity = count===total?1:0.5;
 }
 
 function completeWorkout(){
-alert("Workout Completed ✔");
-back();
+
+let today=new Date().toDateString();
+history.push({workout:workouts[current].title,date:today});
+localStorage.setItem("history",JSON.stringify(history));
+
+updateStreak(today);
+
+alert("Workout Complete ✔");
+backHome();
+updateSuggestion();
 }
+
+function updateStreak(today){
+if(streak.last===today)return;
+
+let last=streak.last?new Date(streak.last):null;
+let now=new Date(today);
+
+if(last && (now-last)/(1000*60*60*24)===1){
+streak.count++;
+}else{
+streak.count=1;
+}
+
+streak.last=today;
+localStorage.setItem("streak",JSON.stringify(streak));
+}
+
+function openProgress(){
+document.getElementById("home").classList.add("hidden");
+document.getElementById("progress").classList.remove("hidden");
+
+let statsBox=document.getElementById("stats");
+statsBox.innerHTML=`
+<div class="card">🔥 Streak: ${streak.count}</div>
+<div class="card">🏋️ Workouts: ${history.length}</div>
+<div class="card">⚡ Score: ${Math.min(100,history.length*10)}</div>
+`;
+
+let hist=document.getElementById("history");
+hist.innerHTML="";
+
+history.slice().reverse().forEach(h=>{
+let d=document.createElement("div");
+d.className="card";
+d.innerText=`${h.workout} - ${h.date}`;
+hist.appendChild(d);
+});
+}
+
+function updateSuggestion(){
+let msg="Start today strong 💪";
+
+if(streak.count>=3) msg="🔥 You are consistent — go harder";
+if(history.length<2) msg="Build habit first";
+if(streak.count===1) msg="Light recovery recommended";
+
+document.getElementById("suggestion").innerText=msg;
+}
+
+updateSuggestion();

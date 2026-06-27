@@ -1,72 +1,153 @@
-document.addEventListener("DOMContentLoaded", function () {
+const workouts = [
+{
+title: "workout 1 – FULL BODY A (STRENGTH BASE)",
+ex: [
+"Leg press — 4×8–12",
+"Chest press (machine or dumbbell) — 4×8–12",
+"Lat pulldown — 4×8–12",
+"Shoulder press — 3×8–10",
+"Plank — 3×60 sec",
+"Cable crunch — 3×12–15",
+"10 min incline walk"
+]
+},
+{
+title: "workout 2 – FAT LOSS + CONDITIONING",
+ex: [
+"Incline walk — 25–35 min (steady pace)",
+"12 squats",
+"10 push-ups",
+"20 mountain climbers",
+"30 sec plank"
+]
+},
+{
+title: "workout 3 – UPPER BODY (MUSCLE BUILD)",
+ex: [
+"Incline dumbbell press — 3×8–12",
+"Seated row — 4×8–12",
+"Lateral raises — 3×12–15",
+"Lat pulldown — 3×8–12",
+"Biceps curls — 3×10–12",
+"Triceps pushdown — 3×10–12",
+"10 min walk"
+]
+},
+{
+title: "workout 4 – ACTIVE RECOVERY",
+ex: [
+"8,000–12,000 steps",
+"Light stretching",
+"Optional 20–30 min easy walk"
+]
+},
+{
+title: "workout 5 – FULL BODY B (PROGRESSION DAY)",
+ex: [
+"Squat or leg press — 4×8–12",
+"Bench press — 4×8–10",
+"Lat pulldown — 3×8–12",
+"Shoulder press — 3×8–10",
+"Hanging knee raises — 3×10–15",
+"10–15 min incline walk"
+]
+},
+{
+title: "workout 6 – FAT LOSS INTERVAL DAY",
+ex: [
+"20–25 min brisk incline walk",
+"10 burpees",
+"15 squats",
+"10 push-ups",
+"30–40 sec plank"
+]
+}
+];
 
-const workouts = {
-w1:["Workout 1"],
-w2:["Workout 2"],
-w3:["Workout 3"],
-w4:["Workout 4"],
-w5:["Workout 5"],
-w6:["Workout 6"]
-};
+let current = null;
+let done = [];
 
-const exercises = {
-w1:["Leg Press 4x8","Chest Press 4x8"],
-w2:["Walk 25 min","Squats 4x12"],
-w3:["Dumbbell Press 3x10"],
-w4:["Steps 8000"],
-w5:["Squat 4x10"],
-w6:["Burpees 5x10"]
-};
+function openPicker(){
+document.getElementById("picker").classList.remove("hidden");
 
-window.go = function(id){
+let list = document.getElementById("workoutList");
+list.innerHTML = "";
 
-document.querySelectorAll(".page").forEach(p=>{
-p.classList.add("hidden");
+workouts.forEach((w,i)=>{
+let div = document.createElement("div");
+div.className = "sheet-item";
+div.innerText = w.title;
+div.onclick = () => openWorkout(i);
+list.appendChild(div);
+});
+}
+
+function closePicker(){
+document.getElementById("picker").classList.add("hidden");
+}
+
+function openWorkout(i){
+current = i;
+done = [];
+
+document.getElementById("home").classList.add("hidden");
+document.getElementById("picker").classList.add("hidden");
+document.getElementById("workout").classList.remove("hidden");
+
+document.getElementById("wtitle").innerText = workouts[i].title;
+
+render();
+}
+
+function back(){
+document.getElementById("workout").classList.add("hidden");
+document.getElementById("home").classList.remove("hidden");
+}
+
+function render(){
+let list = document.getElementById("exList");
+list.innerHTML = "";
+
+workouts[current].ex.forEach((e,i)=>{
+let div = document.createElement("div");
+div.className = "ex";
+
+div.innerHTML = `
+<span>${e}</span>
+<div class="circle ${done[i] ? 'done' : ''}" onclick="toggle(${i})">
+${done[i] ? '✓' : ''}
+</div>
+`;
+
+list.appendChild(div);
 });
 
-document.getElementById(id).classList.remove("hidden");
-
-if(id === "workouts") loadWorkouts();
-if(id === "progress") loadProgress();
-};
-
-function loadWorkouts(){
-const box = document.getElementById("workouts");
-box.innerHTML = "";
-
-for(let key in workouts){
-let btn = document.createElement("button");
-btn.innerText = workouts[key][0];
-
-btn.onclick = function(){
-openWorkout(key);
-};
-
-box.appendChild(btn);
-}
+updateProgress();
 }
 
-function openWorkout(id){
-go("detail");
-
-document.getElementById("title").innerText = workouts[id][0];
-
-const box = document.getElementById("ex");
-box.innerHTML = "";
-
-exercises[id].forEach(e=>{
-let d = document.createElement("div");
-d.innerText = e;
-box.appendChild(d);
-});
+function toggle(i){
+done[i] = !done[i];
+render();
 }
 
-function loadProgress(){
-document.getElementById("stats").innerText =
-"Working version stable ✔";
+function updateProgress(){
+let total = workouts[current].ex.length;
+let count = done.filter(Boolean).length;
+
+let percent = (count/total)*100;
+
+document.getElementById("progressBar").innerHTML =
+`<div style="width:${percent}%"></div>`;
+
+document.getElementById("progressText").innerText =
+`${count} / ${total} exercises completed`;
+
+document.getElementById("completeBtn").disabled = count !== total;
+document.getElementById("completeBtn").style.opacity =
+count === total ? "1" : "0.5";
 }
 
-/* INIT */
-loadWorkouts();
-
-});
+function completeWorkout(){
+alert("Workout Completed ✔");
+back();
+}

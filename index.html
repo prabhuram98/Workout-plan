@@ -1,41 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trainer</title>
-<link rel="stylesheet" href="style.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PRABHU's Trainer</title>
+<link rel="stylesheet" href="style.css"/>
 </head>
 
 <body>
 
-<h1>PRABHU Trainer</h1>
+<div id="home" class="screen active">
+  <h1>PRABHU's Trainer</h1>
 
-<div id="menu">
-  <button onclick="go('workouts')">Workouts</button>
-  <button onclick="go('diet')">Diet</button>
-  <button onclick="go('progress')">Progress</button>
+  <div class="card big" onclick="openPicker()">
+    🏋️ Workout
+  </div>
+
+  <div class="card big" onclick="alert('Diet coming next phase')">
+    🍽️ Diet
+  </div>
+
+  <div class="footer">Developed By PR</div>
 </div>
 
-<div id="workouts" class="page"></div>
+<!-- PICKER SHEET -->
+<div id="picker" class="sheet hidden">
+  <div class="sheet-content">
+    <h3>Choose Today's Workout</h3>
 
-<div id="detail" class="page hidden">
-  <h2 id="title"></h2>
-  <div id="ex"></div>
-  <button onclick="go('workouts')">Back</button>
+    <div id="workoutList"></div>
+
+    <button onclick="closePicker()">Cancel</button>
+  </div>
 </div>
 
-<div id="diet" class="page hidden">
-  <h2>Diet</h2>
+<!-- WORKOUT SCREEN -->
+<div id="workout" class="screen hidden">
+
+  <div class="topbar">
+    <button onclick="back()">←</button>
+    <h2 id="wtitle"></h2>
+  </div>
+
+  <div id="progressBar"></div>
+  <div id="progressText"></div>
+
+  <div id="exList"></div>
+
+  <button id="completeBtn" onclick="completeWorkout()">
+    ✓ Complete Workout
+  </button>
+
 </div>
 
-<div id="progress" class="page hidden">
-  <h2>Progress</h2>
-  <div id="stats"></div>
-</div>
-
-<!-- IMPORTANT: defer fixes click issues -->
-<script src="app.js" defer></script>
-
+<script src="app.js"></script>
 </body>
 </html>

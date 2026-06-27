@@ -9,47 +9,54 @@
 
 <body>
 
+<!-- HOME -->
 <div id="home" class="screen active">
   <h1>PRABHU's Trainer</h1>
 
-  <div class="card big" onclick="openPicker()">
-    🏋️ Workout
-  </div>
+  <div class="card big" onclick="openPicker()">🏋️ Workout</div>
+  <div class="card big" onclick="alert('Diet coming soon')">🍽️ Diet</div>
+  <div class="card big" onclick="openProgress()">📊 Progress</div>
 
-  <div class="card big" onclick="alert('Diet coming next phase')">
-    🍽️ Diet
-  </div>
+  <div class="card" id="suggestion"></div>
 
   <div class="footer">Developed By PR</div>
 </div>
 
-<!-- PICKER SHEET -->
+<!-- PICKER -->
 <div id="picker" class="sheet hidden">
   <div class="sheet-content">
-    <h3>Choose Today's Workout</h3>
-
+    <h3>Choose Workout</h3>
     <div id="workoutList"></div>
-
     <button onclick="closePicker()">Cancel</button>
   </div>
 </div>
 
-<!-- WORKOUT SCREEN -->
+<!-- WORKOUT -->
 <div id="workout" class="screen hidden">
 
   <div class="topbar">
-    <button onclick="back()">←</button>
-    <h2 id="wtitle"></h2>
+    <button onclick="backHome()">←</button>
+    <h3 id="wtitle"></h3>
   </div>
 
-  <div id="progressBar"></div>
   <div id="progressText"></div>
+  <div id="progressBar"><div></div></div>
 
   <div id="exList"></div>
 
-  <button id="completeBtn" onclick="completeWorkout()">
-    ✓ Complete Workout
-  </button>
+  <button id="completeBtn" onclick="completeWorkout()">✓ Complete Workout</button>
+</div>
+
+<!-- PROGRESS -->
+<div id="progress" class="screen hidden">
+
+  <div class="topbar">
+    <button onclick="backHome()">←</button>
+    <h3>Progress</h3>
+  </div>
+
+  <div id="stats"></div>
+  <div id="history"></div>
 
 </div>
 

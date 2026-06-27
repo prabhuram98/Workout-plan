@@ -2,94 +2,59 @@ body{
 margin:0;
 font-family:-apple-system;
 background:#f2f2f7;
-color:#111;
 overflow-x:hidden;
 }
 
-.screen{
-padding:20px;
-}
+.screen{padding:20px;}
+.hidden{display:none;}
 
-.hidden{
-display:none;
-}
-
-h1{
-text-align:center;
-}
+h1{text-align:center;}
 
 .card{
-background:white;
-padding:20px;
-border-radius:16px;
-margin:10px 0;
-box-shadow:0 6px 15px rgba(0,0,0,0.08);
-text-align:center;
-font-weight:600;
-}
-
-.big{
-padding:40px;
-font-size:20px;
-}
-
-.footer{
-text-align:center;
-margin-top:20px;
-font-size:12px;
-opacity:0.6;
-}
-
-/* TOP BAR */
-.topbar{
-display:flex;
-align-items:center;
-gap:10px;
-}
-
-.topbar button{
-font-size:20px;
-background:none;
-border:none;
-}
-
-/* SHEET */
-.sheet{
-position:fixed;
-bottom:0;
-left:0;
-right:0;
-top:0;
-background:rgba(0,0,0,0.4);
-}
-
-.sheet-content{
-position:absolute;
-bottom:0;
-left:0;
-right:0;
-background:white;
-padding:20px;
-border-radius:20px 20px 0 0;
-max-height:70%;
-overflow:auto;
-}
-
-.sheet-item{
-padding:15px;
-border-bottom:1px solid #eee;
-}
-
-/* EXERCISE CARD */
-.ex{
 background:white;
 padding:15px;
 border-radius:16px;
 margin:10px 0;
 box-shadow:0 4px 10px rgba(0,0,0,0.08);
+}
+
+.big{
+padding:35px;
+text-align:center;
+font-size:20px;
+font-weight:600;
+}
+
+.footer{
+text-align:center;
+font-size:12px;
+opacity:0.5;
+margin-top:20px;
+}
+
+.topbar{
+display:flex;
+gap:10px;
+align-items:center;
+}
+
+button{
+border:none;
+background:#007aff;
+color:white;
+padding:10px;
+border-radius:10px;
+}
+
+/* EX */
+.ex{
 display:flex;
 justify-content:space-between;
-align-items:center;
+background:white;
+padding:12px;
+margin:8px 0;
+border-radius:14px;
+box-shadow:0 2px 8px rgba(0,0,0,0.08);
 }
 
 .circle{
@@ -98,9 +63,8 @@ height:24px;
 border-radius:50%;
 border:2px solid #007aff;
 display:flex;
-align-items:center;
 justify-content:center;
-font-size:14px;
+align-items:center;
 cursor:pointer;
 }
 
@@ -112,11 +76,11 @@ color:white;
 
 /* PROGRESS */
 #progressBar{
-height:8px;
+height:6px;
 background:#ddd;
 border-radius:10px;
-margin:10px 0;
 overflow:hidden;
+margin:10px 0;
 }
 
 #progressBar div{
@@ -125,12 +89,25 @@ background:#007aff;
 width:0%;
 }
 
-#completeBtn{
+/* SHEET */
+.sheet{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.4);
+}
+
+.sheet-content{
+position:absolute;
+bottom:0;
+background:white;
 width:100%;
-padding:15px;
-border:none;
-border-radius:12px;
-background:#007aff;
-color:white;
-margin-top:20px;
+border-radius:20px 20px 0 0;
+padding:20px;
+max-height:70%;
+overflow:auto;
+}
+
+.sheet-item{
+padding:12px;
+border-bottom:1px solid #eee;
 }

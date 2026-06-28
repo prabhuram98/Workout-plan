@@ -1,65 +1,354 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
 <title>PRABHU's Trainer</title>
-<link rel="stylesheet" href="style.css"/>
+
+<link rel="stylesheet" href="style.css">
+
+<!-- SF Pro fallback -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
 
+<div id="app">
+
+<!-- ================================================= -->
 <!-- HOME -->
-<div id="home" class="screen active">
-  <h1>PRABHU's Trainer</h1>
+<!-- ================================================= -->
 
-  <div class="card big" onclick="openPicker()">🏋️ Workout</div>
-  <div class="card big" onclick="alert('Diet coming soon')">🍽️ Diet</div>
-  <div class="card big" onclick="openProgress()">📊 Progress</div>
+<section id="homeScreen" class="screen active">
 
-  <div class="card" id="suggestion"></div>
+<header class="hero">
 
-  <div class="footer">Developed By PR</div>
+<h1>
+
+PRABHU's Trainer
+
+</h1>
+
+<p id="coachSuggestion">
+
+Stay consistent today 💪
+
+</p>
+
+</header>
+
+
+<div class="homeGrid">
+
+<button id="workoutBtn" class="homeCard">
+
+<div class="icon">
+
+🏋️
+
 </div>
 
-<!-- PICKER -->
-<div id="picker" class="sheet hidden">
-  <div class="sheet-content">
-    <h3>Choose Workout</h3>
-    <div id="workoutList"></div>
-    <button onclick="closePicker()">Cancel</button>
-  </div>
+<h2>
+
+Workout
+
+</h2>
+
+</button>
+
+
+
+<button id="dietBtn" class="homeCard">
+
+<div class="icon">
+
+🥗
+
 </div>
 
-<!-- WORKOUT -->
-<div id="workout" class="screen hidden">
+<h2>
 
-  <div class="topbar">
-    <button onclick="backHome()">←</button>
-    <h3 id="wtitle"></h3>
-  </div>
+Diet
 
-  <div id="progressText"></div>
-  <div id="progressBar"><div></div></div>
+</h2>
 
-  <div id="exList"></div>
+</button>
 
-  <button id="completeBtn" onclick="completeWorkout()">✓ Complete Workout</button>
+
+
+<button id="progressBtn" class="homeCard">
+
+<div class="icon">
+
+📈
+
 </div>
 
+<h2>
+
+Progress
+
+</h2>
+
+</button>
+
+</div>
+
+
+<footer>
+
+Developed By PR
+
+</footer>
+
+</section>
+
+
+
+<!-- ================================================= -->
+<!-- WORKOUT SCREEN -->
+<!-- ================================================= -->
+
+<section id="workoutScreen" class="screen">
+
+<div class="navBar">
+
+<button class="backButton" id="backWorkout">
+
+←
+
+</button>
+
+<h2 id="workoutTitle">
+
+Workout
+
+</h2>
+
+</div>
+
+
+
+<div class="progressArea">
+
+<div id="progressText">
+
+0 / 0 Exercises Completed
+
+</div>
+
+<div class="progressTrack">
+
+<div id="progressFill"></div>
+
+</div>
+
+</div>
+
+
+
+<div id="exerciseContainer">
+
+</div>
+
+
+
+<button id="finishWorkout"
+
+class="primaryButton">
+
+Complete Workout
+
+</button>
+
+</section>
+
+
+
+<!-- ================================================= -->
 <!-- PROGRESS -->
-<div id="progress" class="screen hidden">
+<!-- ================================================= -->
 
-  <div class="topbar">
-    <button onclick="backHome()">←</button>
-    <h3>Progress</h3>
-  </div>
+<section id="progressScreen" class="screen">
 
-  <div id="stats"></div>
-  <div id="history"></div>
+<div class="navBar">
+
+<button class="backButton"
+
+id="backProgress">
+
+←
+
+</button>
+
+<h2>
+
+Progress
+
+</h2>
 
 </div>
+
+
+
+<div id="progressCards">
+
+</div>
+
+
+
+<div id="historyCards">
+
+</div>
+
+</section>
+
+
+
+<!-- ================================================= -->
+<!-- DIET -->
+<!-- ================================================= -->
+
+<section id="dietScreen" class="screen">
+
+<div class="navBar">
+
+<button class="backButton"
+
+id="backDiet">
+
+←
+
+</button>
+
+<h2>
+
+Diet
+
+</h2>
+
+</div>
+
+
+
+<div id="dietCards">
+
+</div>
+
+</section>
+
+
+
+
+
+<!-- ================================================= -->
+<!-- APPLE WORKOUT PICKER -->
+<!-- ================================================= -->
+
+<div id="pickerOverlay">
+
+<div id="pickerSheet">
+
+<div class="grabber"></div>
+
+<h3>
+
+Choose Today's Workout
+
+</h3>
+
+
+
+<div id="workoutList">
+
+</div>
+
+
+
+<button id="closePicker"
+
+class="secondaryButton">
+
+Cancel
+
+</button>
+
+</div>
+
+</div>
+
+
+
+
+
+<!-- ================================================= -->
+<!-- REST TIMER -->
+<!-- ================================================= -->
+
+<div id="timerOverlay">
+
+<div class="timerCard">
+
+<h3>
+
+Rest Timer
+
+</h3>
+
+
+
+<div id="timerCircle">
+
+<span id="timerValue">
+
+60
+
+</span>
+
+</div>
+
+
+
+<div class="timerButtons">
+
+<button id="pauseTimer">
+
+Pause
+
+</button>
+
+<button id="skipTimer">
+
+Skip
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<script src="workouts.js"></script>
+
+<script src="learn.js"></script>
+
+<script src="videos.js"></script>
 
 <script src="app.js"></script>
+
 </body>
+
 </html>

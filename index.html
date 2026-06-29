@@ -1,62 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workout App</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
-</head>
+<html>
 <body>
-
-<div class="app-container">
-    <div id="screen-home" class="screen active">
-        <h1>Hello, Prabhu!</h1>
-        <div class="action-grid">
-            <div class="card" onclick="navTo('screen-workout-bridge')"><i class="fa-solid fa-dumbbell"></i><h2>Workout</h2></div>
-            <div class="card"><i class="fa-solid fa-clock-rotate-left"></i><h2>History</h2></div>
-            <div class="card"><i class="fa-solid fa-chart-line"></i><h2>Progress</h2></div>
-            <div class="card"><i class="fa-solid fa-book"></i><h2>Library</h2></div>
-            <div class="card"><i class="fa-solid fa-weight-scale"></i><h2>Metrics</h2></div>
-            <div class="card"><i class="fa-solid fa-bowl-food"></i><h2>Diet</h2></div>
-            <div class="card"><i class="fa-solid fa-medal"></i><h2>Challenges</h2></div>
-            <div class="card" onclick="navTo('screen-settings')"><i class="fa-solid fa-gear"></i><h2>Settings</h2></div>
-        </div>
-    </div>
-
-    <div id="screen-workout-bridge" class="screen">
-        <button class="back-btn" onclick="navTo('screen-home')"><i class="fa-solid fa-arrow-left"></i></button>
-        <h2>Workout</h2>
-        <div class="action-grid">
-            <div class="card" onclick="navTo('screen-my-workouts')"><i class="fa-solid fa-list"></i><h2>My Workouts</h2></div>
-            <div class="card" onclick="navTo('screen-add-workout')"><i class="fa-solid fa-plus"></i><h2>Configure</h2></div>
-        </div>
-    </div>
-
-    <div id="screen-add-workout" class="screen">
-        <button class="back-btn" onclick="navTo('screen-workout-bridge')"><i class="fa-solid fa-arrow-left"></i></button>
-        <h2>Create Workout</h2>
-        <input type="text" id="workout-name" placeholder="Workout Name" class="main-input">
-        <div class="builder-box">
-            <input type="text" id="ex-name" placeholder="Exercise Name">
-            <div class="grid-inputs">
-                <input type="number" id="ex-sets" placeholder="Sets">
-                <input type="number" id="ex-reps" placeholder="Reps">
-                <input type="number" id="ex-kgs" placeholder="Kgs">
-            </div>
-            <button class="add-ex-btn" onclick="addExerciseToList()">+ Add Exercise</button>
-        </div>
-        <div id="exercise-list" class="list-display"></div>
-        <button class="save-btn" onclick="saveWorkout()">Save Workout</button>
-    </div>
-
-    <div id="screen-settings" class="screen">
-        <button class="back-btn" onclick="navTo('screen-home')"><i class="fa-solid fa-arrow-left"></i></button>
-        <h2>Settings</h2>
-        <p>User account and sync settings will appear here.</p>
-    </div>
-</div>
-
-<script type="module" src="script.js"></script>
+    <input id="email" type="email">
+    <input id="password" type="password">
+    <button onclick="loginUser(document.getElementById('email').value, document.getElementById('password').value)">Login</button>
+    <button onclick="resetPassword(document.getElementById('email').value)">Forgot Password</button>
+    <script type="module" src="auth.js"></script>
 </body>
 </html>

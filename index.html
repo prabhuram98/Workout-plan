@@ -1,72 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>PRABHU Trainer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PR Workout</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div id="app">
-
 <!-- HOME -->
-<section id="home" class="screen active">
-  <h1 class="title">PRABHU Trainer</h1>
+<div id="home" class="screen active">
 
-  <div class="grid">
+  <h1 class="title">PR Workout</h1>
 
-    <div class="card" onclick="showScreen('workout')">
-      Workout
-    </div>
+  <div class="bigCard" onclick="show('workout')">
+    🏋️ Workout
+  </div>
 
-    <div class="card" onclick="showScreen('progress')">
-      Progress
-    </div>
+  <div class="bigCard" onclick="show('progress')">
+    📊 Progress
+  </div>
 
-    <div class="card" onclick="showScreen('diet')">
-      Diet
-    </div>
-
+  <div class="bigCard" onclick="show('diet')">
+    🥗 Diet
   </div>
 
   <div class="footer">Developed By PR</div>
-</section>
+
+</div>
 
 <!-- WORKOUT -->
-<section id="workout" class="screen">
+<div id="workout" class="screen">
 
   <div class="topbar">
-    <button onclick="showScreen('home')">←</button>
+    <button onclick="show('home')">←</button>
     <h2>Workout</h2>
   </div>
 
-  <div class="progressBar">
-    <div class="fill"></div>
+  <div class="card">
+    Leg Press — 4×8–12
   </div>
 
-  <div class="exerciseCard">
-    Leg Press
-    <span>4 × 8–12</span>
+  <div class="card">
+    Chest Press — 4×8–12
   </div>
 
-  <div class="exerciseCard">
-    Chest Press
-    <span>4 × 8–12</span>
+  <div class="card">
+    Lat Pulldown — 4×8–12
   </div>
 
-  <button class="primary">Complete Workout</button>
-
-</section>
+</div>
 
 <!-- PROGRESS -->
-<section id="progress" class="screen">
+<div id="progress" class="screen">
 
   <div class="topbar">
-    <button onclick="showScreen('home')">←</button>
+    <button onclick="show('home')">←</button>
     <h2>Progress</h2>
   </div>
 
-  <div class="statCard">Total Workouts: 0</div>
-  <div class="statCard">
+  <div class="card">Workouts Completed: 0</div>
+  <div class="card">Streak: 0 days</div>
+
+</div>
+
+<!-- DIET -->
+<div id="diet" class="screen">
+
+  <div class="topbar">
+    <button onclick="show('home')">←</button>
+    <h2>Diet</h2>
+  </div>
+
+  <div class="card">High Protein Plan Coming Soon</div>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>

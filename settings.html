@@ -2,36 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="style.css">
-    <title>Settings</title>
 </head>
 <body>
-
     <header class="sub-header">
-        <button class="back-btn" onclick="location.href='index.html'">←</button>
-        <button class="logout-btn" onclick="performLogout()">Logout</button>
+        <button class="back-btn" onclick="location.href='index.html'" style="background:none; border:none; color:white;">←</button>
+        <button class="logout-btn" onclick="logout()" style="background:none; border:none; color:#ff8a80;">Logout</button>
     </header>
-
     <div class="full-viewport">
-        <button class="card big-nav-btn" onclick="location.href='account.html'">Account</button>
-        <button class="card big-nav-btn" onclick="alert('Preferences coming soon')">Preference</button>
+        <button class="card" onclick="location.href='account.html'">
+            <svg viewBox="0 0 24 24"><path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"/></svg>
+        </button>
+        <footer>Developed by PR</footer>
     </div>
-
     <script type="module">
         import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.x.x/firebase-auth.js";
-        
-        window.performLogout = async () => {
-            const auth = getAuth();
-            try {
-                await signOut(auth);
-                // Redirect to account page so they can login again if they want
-                location.href = "account.html";
-            } catch (e) { 
-                alert("Logout failed: " + e.message); 
-            }
-        };
+        window.logout = () => signOut(getAuth()).then(() => location.href = "account.html");
     </script>
-
 </body>
 </html>

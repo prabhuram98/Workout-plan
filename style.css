@@ -10,35 +10,14 @@ html, body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, sans-serif;
     color: #ffffff;
     touch-action: manipulation;
+    
     /* Prevent text selection and copy/paste */
     -webkit-user-select: none; 
     user-select: none;
     -webkit-touch-callout: none;
 }
 
-/* --- 2. LAYOUT & CONTAINERS --- */
-.full-viewport {
-    height: calc(100vh - 60px); 
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 20px;
-    gap: 15px;
-}
-
-.grid-container { 
-    display: grid; 
-    grid-template-columns: 1fr 1fr; 
-    gap: 15px; 
-    padding: 15px;
-    height: calc(100vh - 120px); 
-    width: 100vw;
-    overflow: hidden;
-}
-
-/* --- 3. HEADERS --- */
+/* --- 2. HEADERS --- */
 .user-header { 
     background-color: #4a148c; 
     padding: 15px 20px; 
@@ -51,13 +30,26 @@ html, body {
     justify-content: flex-end;
     width: 100%;
 }
-.sub-header { 
-    background-color: #4a148c; 
-    padding: 0 20px; 
-    display: flex; 
-    align-items: center; 
-    justify-content: space-between; 
-    height: 60px;
+.header-icon {
+    width: 28px; /* Slightly larger for easier tapping */
+    height: 28px;
+    fill: white;
+    cursor: pointer;
+}
+
+h1 { margin: 5px 0; font-size: 1.8em; }
+p { margin: 0; font-size: 0.9em; opacity: 0.8; }
+
+/* --- 3. DASHBOARD GRID (FIXED FOR 6 ICONS) --- */
+.grid-container { 
+    display: grid; 
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    grid-auto-rows: 100px; /* EXACT height for every button. Fixes the "super big" issue. */
+    gap: 15px; 
+    padding: 20px;
+    height: calc(100vh - 180px); /* Leaves room for header and footer */
+    width: 100vw;
+    align-content: start; /* Packs buttons to the top, stops stretching */
 }
 
 /* --- 4. BUTTONS & ICONS --- */
@@ -66,69 +58,30 @@ html, body {
     border-radius: 15px; 
     border: none; 
     box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-    color: #ffffff;
     cursor: pointer;
     display: flex; 
     align-items: center; 
     justify-content: center;
     width: 100%;
-    max-width: 400px;
-    min-height: 80px; 
-    padding: 15px;
+    height: 100%; 
 }
-.card:active { transform: scale(0.98); background: #3d2b5e; }
+.card:active { transform: scale(0.95); background: #3d2b5e; }
 
+/* The icons inside the 6 buttons */
 .card svg {
-    width: 30px; 
-    height: 30px;
+    width: 40px; 
+    height: 40px;
     fill: #ffffff;
     pointer-events: none;
 }
-.header-icon {
-    width: 24px;
-    height: 24px;
-    fill: white;
-    cursor: pointer;
-}
 
-/* --- 5. FORMS & UTILITIES --- */
-.auth-container { 
-    width: 90%; 
-    max-width: 450px; 
-    text-align: center; 
-    margin: 0 auto;
-}
-h2#auth-title { font-size: 2em; margin-bottom: 30px; }
-
-input { 
-    width: 100%; 
-    padding: 20px; 
-    margin: 15px 0; 
-    border-radius: 15px; 
-    border: 2px solid #4a148c; 
-    background: #2d1b4e; 
-    color: white;
-    font-size: 1.2em;
-}
-
-button.save-btn { 
-    width: 100%; 
-    padding: 20px; 
-    background-color: #6a1b9a; 
-    color: white; 
-    border: none; 
-    border-radius: 15px; 
-    font-size: 1.2em;
-    font-weight: bold; 
-    cursor: pointer;
-    margin-top: 20px;
-}
-
+/* --- 5. FOOTER --- */
 footer {
-    margin-top: auto; 
-    padding: 20px; 
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 15px; 
     font-size: 0.8em; 
     opacity: 0.6;
     text-align: center;
-    width: 100%;
 }

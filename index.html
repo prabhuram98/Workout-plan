@@ -1,82 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PR Workout</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Workout App">
+    
+    <title>Workout Tracker</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
 
-<!-- HOME -->
-<div id="home" class="screen active">
+<div class="app-container">
 
-  <h1 class="title">PR Workout</h1>
+    <div id="screen-home" class="screen active">
+        <div class="header-top">
+            <div>
+                <h1>Hello, Prabhu! 👋</h1>
+                <p>Ready to crush your goals today?</p>
+            </div>
+            <div class="avatar"><i class="fa-solid fa-user"></i></div>
+        </div>
 
-  <div class="bigCard" onclick="show('workout')">
-    🏋️ Workout
-  </div>
+        <div class="main-card" onclick="navTo('screen-workout-list')">
+            <div class="icon-box"><i class="fa-solid fa-dumbbell"></i></div>
+            <div>
+                <h2>Workout</h2>
+                <p>Start your training<br>and stay strong</p>
+            </div>
+            <div class="chevron"><i class="fa-solid fa-chevron-right"></i></div>
+        </div>
 
-  <div class="bigCard" onclick="show('progress')">
-    📊 Progress
-  </div>
+        <div class="main-card">
+            <div class="icon-box" style="background: linear-gradient(135deg, #a644ff, #6b1fb3);"><i class="fa-solid fa-chart-line"></i></div>
+            <div>
+                <h2>Progress</h2>
+                <p>Track your performance<br>and stay motivated</p>
+            </div>
+            <div class="chevron"><i class="fa-solid fa-chevron-right"></i></div>
+        </div>
 
-  <div class="bigCard" onclick="show('diet')">
-    🥗 Diet
-  </div>
+        <div class="main-card">
+            <div class="icon-box" style="background: linear-gradient(135deg, #7c2de0, #400d8a);"><i class="fa-solid fa-bowl-food"></i></div>
+            <div>
+                <h2>Diet</h2>
+                <p>Eat healthy and<br>fuel your body</p>
+            </div>
+            <div class="chevron"><i class="fa-solid fa-chevron-right"></i></div>
+        </div>
 
-  <div class="footer">Developed By PR</div>
+        <div class="stats-container">
+            <div class="stat-item">
+                <i class="fa-solid fa-fire" style="color: white;"></i>
+                <h3>0</h3>
+                <p>Day Streak</p>
+            </div>
+            <div class="stat-item" style="border-left: 1px solid rgba(255,255,255,0.1); border-right: 1px solid rgba(255,255,255,0.1);">
+                <i class="fa-solid fa-trophy" style="color: white;"></i>
+                <h3>0</h3>
+                <p>Workouts</p>
+            </div>
+            <div class="stat-item">
+                <i class="fa-solid fa-bullseye" style="color: white;"></i>
+                <h3>0%</h3>
+                <p>Goal Progress</p>
+            </div>
+        </div>
+    </div>
 
-</div>
-
-<!-- WORKOUT -->
-<div id="workout" class="screen">
-
-  <div class="topbar">
-    <button onclick="show('home')">←</button>
-    <h2>Workout</h2>
-  </div>
-
-  <div class="card">
-    Leg Press — 4×8–12
-  </div>
-
-  <div class="card">
-    Chest Press — 4×8–12
-  </div>
-
-  <div class="card">
-    Lat Pulldown — 4×8–12
-  </div>
-
-</div>
-
-<!-- PROGRESS -->
-<div id="progress" class="screen">
-
-  <div class="topbar">
-    <button onclick="show('home')">←</button>
-    <h2>Progress</h2>
-  </div>
-
-  <div class="card">Workouts Completed: 0</div>
-  <div class="card">Streak: 0 days</div>
-
-</div>
-
-<!-- DIET -->
-<div id="diet" class="screen">
-
-  <div class="topbar">
-    <button onclick="show('home')">←</button>
-    <h2>Diet</h2>
-  </div>
-
-  <div class="card">High Protein Plan Coming Soon</div>
-
-</div>
-
-<script src="app.js"></script>
-
-</body>
-</html>
+    <div id="screen-workout-list" class="screen">
+        <div class="header-top" style="justify-content: flex-start; gap: 20px;">
+            <button class="icon-btn" onclick="navTo('screen-home')"><i class="fa-solid fa-chevron-left"></i></button>
+            <h2 style="flex-grow: 1; text-align: center; margin-bottom: 0;">Workout</h2>
+            <button class

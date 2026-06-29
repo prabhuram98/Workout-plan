@@ -1,32 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Settings</title>
 </head>
 <body>
+
     <header class="sub-header">
-        <button class="back-btn" onclick="history.back()">←</button>
-        <h2>Account Settings</h2>
+        <button class="back-btn" onclick="location.href='index.html'">←</button>
+        <button class="logout-btn" onclick="performLogout()">Logout</button>
     </header>
 
-    <div class="container" id="account-section">
-        <div id="auth-ui">
-            <h3>Login / Sign Up</h3>
-            <input type="email" id="email" placeholder="Email">
-            <input type="password" id="password" placeholder="Password">
-            <button class="save-btn" onclick="handleLogin()">Sign In</button>
-            <p>or</p>
-            <button class="save-btn" style="background:#4a148c" onclick="handleSignup()">Create Account</button>
-        </div>
-
-        <div id="user-ui" style="display:none;">
-            <h3>Your Account</h3>
-            <p id="user-email"></p>
-            <button class="save-btn" onclick="handleLogout()">Logout</button>
-        </div>
+    <div class="full-viewport">
+        <button class="card big-nav-btn" onclick="location.href='account.html'">Account</button>
+        <button class="card big-nav-btn" onclick="alert('Preferences coming soon')">Preference</button>
     </div>
 
-    <script type="module" src="settings-logic.js"></script>
+    <script type="module">
+        import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.x.x/firebase-auth.js";
+        
+        window.performLogout = async () => {
+            const auth = getAuth();
+            try {
+                await signOut(auth);
+                // Redirect to account page so they can login again if they want
+                location.href = "account.html";
+            } catch (e) { 
+                alert("Logout failed: " + e.message); 
+            }
+        };
+    </script>
+
 </body>
 </html>

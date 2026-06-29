@@ -1,47 +1,11 @@
-:root {
-    --bg-color: #f3e5f5;
-    --card-bg: #ffffff;
-    --accent: #7b1fa2;
-    --text-main: #4a148c;
-    --text-sub: #7b1fa2;
-}
-
-body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-main);
-    display: flex;
-    justify-content: center;
-    min-height: 100vh;
-}
-
+:root { --bg-color: #f3e5f5; --accent: #7b1fa2; --text-main: #4a148c; }
+body { font-family: sans-serif; background-color: var(--bg-color); color: var(--text-main); display: flex; justify-content: center; min-height: 100vh; }
 .app-container { width: 100%; max-width: 430px; padding: 20px; }
-
 .screen { display: none; }
-.screen.active { display: block; animation: fadeIn 0.3s; }
-
-header { margin-bottom: 30px; margin-top: 20px; }
-
-.action-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-}
-
-.card {
-    background: var(--card-bg);
-    padding: 20px;
-    border-radius: 20px;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-
-.card:active { transform: scale(0.95); }
-.card i { font-size: 28px; color: var(--accent); margin-bottom: 10px; display: block; }
-.card h2 { font-size: 14px; font-weight: 600; }
-
-.back-btn { background: none; border: none; font-size: 20px; color: var(--accent); cursor: pointer; margin-bottom: 20px; }
-
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.screen.active { display: block; }
+.action-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px; }
+.card { background: white; padding: 20px; border-radius: 20px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); cursor: pointer; }
+.main-input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 10px; border: 1px solid #ddd; }
+.grid-inputs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin: 10px 0; }
+.save-btn { width: 100%; background: #7b1fa2; color: white; padding: 15px; border-radius: 12px; border: none; margin-top: 20px; }
+.back-btn { background: none; border: none; font-size: 20px; color: var(--accent); cursor: pointer; }

@@ -2,24 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Workout Tracker</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout App</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <div class="app-container">
-    <!-- HOME SCREEN -->
     <div id="screen-home" class="screen active">
-        <header>
-            <h1>Hello, Prabhu! 👋</h1>
-            <p>Ready to crush your goals?</p>
-        </header>
-
+        <h1>Hello, Prabhu!</h1>
         <div class="action-grid">
-            <div class="card" onclick="navTo('screen-workout')"><i class="fa-solid fa-dumbbell"></i><h2>Workout</h2></div>
+            <div class="card" onclick="navTo('screen-workout-bridge')"><i class="fa-solid fa-dumbbell"></i><h2>Workout</h2></div>
             <div class="card"><i class="fa-solid fa-clock-rotate-left"></i><h2>History</h2></div>
             <div class="card"><i class="fa-solid fa-chart-line"></i><h2>Progress</h2></div>
             <div class="card"><i class="fa-solid fa-book"></i><h2>Library</h2></div>
@@ -30,23 +24,39 @@
         </div>
     </div>
 
-    <!-- WORKOUT SCREEN (Placeholder) -->
-    <div id="screen-workout" class="screen">
+    <div id="screen-workout-bridge" class="screen">
         <button class="back-btn" onclick="navTo('screen-home')"><i class="fa-solid fa-arrow-left"></i></button>
-        <h2>Workouts</h2>
-        <p>Select a routine to begin.</p>
+        <h2>Workout</h2>
+        <div class="action-grid">
+            <div class="card" onclick="navTo('screen-my-workouts')"><i class="fa-solid fa-list"></i><h2>My Workouts</h2></div>
+            <div class="card" onclick="navTo('screen-add-workout')"><i class="fa-solid fa-plus"></i><h2>Configure</h2></div>
+        </div>
     </div>
 
-    <!-- SETTINGS SCREEN (Placeholder) -->
+    <div id="screen-add-workout" class="screen">
+        <button class="back-btn" onclick="navTo('screen-workout-bridge')"><i class="fa-solid fa-arrow-left"></i></button>
+        <h2>Create Workout</h2>
+        <input type="text" id="workout-name" placeholder="Workout Name" class="main-input">
+        <div class="builder-box">
+            <input type="text" id="ex-name" placeholder="Exercise Name">
+            <div class="grid-inputs">
+                <input type="number" id="ex-sets" placeholder="Sets">
+                <input type="number" id="ex-reps" placeholder="Reps">
+                <input type="number" id="ex-kgs" placeholder="Kgs">
+            </div>
+            <button class="add-ex-btn" onclick="addExerciseToList()">+ Add Exercise</button>
+        </div>
+        <div id="exercise-list" class="list-display"></div>
+        <button class="save-btn" onclick="saveWorkout()">Save Workout</button>
+    </div>
+
     <div id="screen-settings" class="screen">
         <button class="back-btn" onclick="navTo('screen-home')"><i class="fa-solid fa-arrow-left"></i></button>
         <h2>Settings</h2>
-        <div class="card" style="margin-top: 20px;">
-            <p>Cloud Sync: <b>Enabled</b></p>
-        </div>
+        <p>User account and sync settings will appear here.</p>
     </div>
 </div>
 
-<script src="script.js"></script>
+<script type="module" src="script.js"></script>
 </body>
 </html>

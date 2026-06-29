@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>My Workouts</title>
+</head>
+<body>
+    <header class="sub-header">
+        <button class="back-btn" onclick="location.href='workout.html'">←</button>
+        <h2>My Workouts</h2>
+    </header>
+
+    <div class="container" id="savedWorkoutsContainer">
+        <!-- Render targets populate safely here -->
+    </div>
+
+    <script type="module">
+        import { db, auth } from "./firebase-config.js";
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.x.x/firebase-auth.js";
+        import { collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.x.x/firebase-firestore.js";
+
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                window.location.href = "login.html";
+                return;
+            }
+
+            const targetDiv = document.getElementById('savedWorkoutsContainer');
+            try {
+                const q = query(collection(db, "configuredRoutines"), where("userId", "==", user.uid));
+                const querySnapshot = await getDocs(q);
+
+                if (querySnapshot.empty) {
+                    targetDiv.innerHTML = "<p>No custom configuration layouts generated yet. Head to 'Configure Workout' to build your routines.</p>";
+                    return;
+                }
+
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const button = document.createElement('button');
+                    button.className = "list-item-btn";
+                    button.innerText = data.workoutName;
+                    
+                    button.onclick = () => {
+                        localStorage.setItem('activeWorkoutInspect', JSON.stringify(data));
+                        window.location.href = 'details.html';
+                    };
+                    targetDiv.appendChild(button);
+                });
+            } catch (e) {
+                targetDiv.innerHTML = "<p>Error loading configuration arrays.</p>";
+            }
+        });
+    </script>
+</body>
+</html>

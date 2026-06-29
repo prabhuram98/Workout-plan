@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>Settings</title>
+</head>
+<body>
+    <header class="sub-header">
+        <button class="back-btn" onclick="history.back()">←</button>
+        <h2>Account Settings</h2>
+    </header>
+
+    <div class="container" id="account-section">
+        <div id="auth-ui">
+            <h3>Login / Sign Up</h3>
+            <input type="email" id="email" placeholder="Email">
+            <input type="password" id="password" placeholder="Password">
+            <button class="save-btn" onclick="handleLogin()">Sign In</button>
+            <p>or</p>
+            <button class="save-btn" style="background:#4a148c" onclick="handleSignup()">Create Account</button>
+        </div>
+
+        <div id="user-ui" style="display:none;">
+            <h3>Your Account</h3>
+            <p id="user-email"></p>
+            <button class="save-btn" onclick="handleLogout()">Logout</button>
+        </div>
+    </div>
+
+    <script type="module" src="settings-logic.js"></script>
+</body>
+</html>

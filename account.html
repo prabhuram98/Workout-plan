@@ -1,53 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Account Login</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .auth-container { width: 100%; max-width: 400px; text-align: center; }
-        input { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: none; }
-    </style>
 </head>
 <body>
-    <div class="full-viewport">
+
+    <header class="user-header" style="height: auto; flex-direction: row; align-items: center; justify-content: flex-start; border-bottom: none; padding-bottom: 0;">
+        <button onclick="location.href='index.html'" style="background:none; border:none; color:#4a148c; font-size: 1.5em; cursor:pointer;">← Back</button>
+    </header>
+
+    <div class="login-wrapper">
         <div class="auth-container">
             <h2 id="auth-title">Login</h2>
+            
             <input type="email" id="email" placeholder="Email">
             <input type="password" id="password" placeholder="Password">
             
             <button class="save-btn" onclick="authAction()">Submit</button>
-            
-            <p id="toggle-text" onclick="toggleMode()" style="cursor:pointer; margin-top:15px; color:#bb86fc;">
-                Need an account? Sign up
-            </p>
-            <p onclick="forgotPassword()" style="font-size: 0.8em; margin-top: 10px; opacity: 0.7;">Forgot Password?</p>
         </div>
     </div>
 
     <script type="module">
         import { auth } from "./firebase-config.js";
-        import { signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.x.x/firebase-auth.js";
-
-        let isLogin = true;
-        window.toggleMode = () => {
-            isLogin = !isLogin;
-            document.getElementById('auth-title').innerText = isLogin ? "Login" : "Sign Up";
-            document.getElementById('toggle-text').innerText = isLogin ? "Need an account? Sign up" : "Have an account? Login";
-        };
-
+        import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.x.x/firebase-auth.js";
+        
         window.authAction = async () => {
             const email = document.getElementById('email').value;
             const pass = document.getElementById('password').value;
-            try {
-                if(isLogin) await signInWithEmailAndPassword(auth, email, pass);
-                else await createUserWithEmailAndPassword(auth, email, pass);
-                location.href = "index.html";
-            } catch(e) { alert(e.message); }
-        };
+            
+            if (!email || !pass) {
+                alert("Please enter both email and password.");
+                return;
+            }
 
-        window.forgotPassword = () => {
-            const email = document.getElementById('email').value;
-            if(!email) return alert("Enter email first");
-            sendPasswordResetEmail(auth, email).then(() => alert("Reset email sent"));
+            try { 
+                await signInWithEmailAndPassword(auth, email, pass); 
+                location.href = "index.html"; 
+            } catch(e) { 
+                alert("Login failed: " + e.message); 
+            }
         };
     </script>
 </body>

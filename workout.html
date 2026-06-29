@@ -2,21 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Workout</title>
+    <title>Workout Hub</title>
 </head>
 <body>
-    <header class="sub-header">
-        <button class="back-btn" onclick="window.history.back()">←</button>
-        <h2>Workout</h2>
-    </header>
-    
-    <div class="container">
-        <input type="text" id="exercise" placeholder="Exercise Name">
-        <input type="number" id="weight" placeholder="Weight (kg)">
-        <button class="save-btn" onclick="saveWorkout()">Save Workout</button>
+    <div style="padding: 10px 0 0 10px;">
+        <button class="back-btn" style="color: #6a1b9a;" onclick="location.href='index.html'">← Back</button>
     </div>
 
-    <script type="module" src="workout-logic.js"></script>
+    <div class="grid-container vertical-stack">
+        <button class="card big-btn" onclick="location.href='my-workouts.html'">My Workout</button>
+        <button class="card big-btn" onclick="location.href='configure-workout.html'">Configure Workout</button>
+    </div>
 </body>
 </html>

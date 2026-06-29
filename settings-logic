@@ -1,0 +1,47 @@
+import { auth } from "./firebase-config.js";
+import { 
+    signInWithEmailAndPassword, 
+    createUserWithEmailAndPassword, 
+    signOut, 
+    onAuthStateChanged 
+} from "https://www.gstatic.com/firebasejs/10.x.x/firebase-auth.js";
+
+const authUI = document.getElementById('auth-ui');
+const userUI = document.getElementById('user-ui');
+const emailDisplay = document.getElementById('user-email');
+
+// Check Auth State
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        authUI.style.display = 'none';
+        userUI.style.display = 'block';
+        emailDisplay.innerText = `Logged in as: ${user.email}`;
+    } else {
+        authUI.style.display = 'block';
+        userUI.style.display = 'none';
+    }
+});
+
+// Logic functions
+window.handleLogin = async () => {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    try {
+        await signInWithEmailAndPassword(auth, email, password);
+        alert("Welcome back!");
+    } catch (e) { alert(e.message); }
+};
+
+window.handleSignup = async () => {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        alert("Account created successfully!");
+    } catch (e) { alert(e.message); }
+};
+
+window.handleLogout = async () => {
+    await signOut(auth);
+    window.location.reload();
+};

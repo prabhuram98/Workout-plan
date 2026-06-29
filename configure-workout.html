@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Configure Workout</title>
+</head>
+<body>
+    <header class="sub-header">
+        <button class="back-btn" onclick="location.href='workout.html'">←</button>
+        <h2>Configure Workout</h2>
+    </header>
+
+    <div class="container">
+        <div class="form-card">
+            <input type="text" id="workoutTitle" placeholder="Workout Name (e.g., Push Day)">
+        </div>
+
+        <div class="form-card">
+            <h3>Add Workout</h3>
+            <input type="text" id="exName" placeholder="Workout Name (e.g., Push Ups / Plank)">
+            <div class="tile-inputs">
+                <input type="number" id="reps" placeholder="Reps">
+                <input type="number" id="kgs" placeholder="Kgs">
+                <input type="number" id="sec" placeholder="Sec">
+            </div>
+            <button class="action-btn" id="addExerciseBtn">+ Add Workout to List</button>
+        </div>
+
+        <div class="form-card">
+            <h3>Current Workout List:</h3>
+            <div id="exercisePreviewList"></div>
+        </div>
+
+        <button class="save-btn" id="saveFinalWorkoutBtn">Save Final Workout Sequence</button>
+    </div>
+
+    <script type="module">
+        import { db, auth } from "./firebase-config.js";
+        import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.x.x/firebase-firestore.js";
+
+        let workoutArray = [];
+
+        document.getElementById('addExerciseBtn').addEventListener('click', () => {
+            const name = document.getElementById('exName').value;
+            const reps = document.getElementById('reps').value || "0";
+            const kgs = document.getElementById('kgs').value || "0";
+            const sec = document.getElementById('sec').value || "0";
+
+            if (!name) {
+                alert("Please input a valid workout name.");
+                return;
+            }
+
+            const item = { name, reps, kgs, sec };
+            workoutArray.push(item);
+
+            // Append display visually
+            const listDiv = document.getElementById('exercisePreviewList');
+            listDiv.innerHTML += `
+                <div class="exercise-tag">
+                    <h4>${name}</h4>
+                    <p>${reps} reps | ${kgs} kgs | ${sec} sec</p>
+                </div>
+            `;
+
+            // Reset step inputs
+            document.getElementById('exName').value = '';
+            document.getElementById('reps').value = '';
+            document.getElementById('kgs').value = '';
+            document.getElementById('sec').value = '';
+        });
+
+        document.getElementById('saveFinalWorkoutBtn').addEventListener('click', async () => {
+            const title = document.getElementById('workoutTitle').value;
+            if (!title || workoutArray.length === 0) {
+                alert("Provide a custom configuration name and at least one logged workout exercise element.");
+                return;
+            }
+
+            try {
+                await addDoc(collection(db, "configuredRoutines"), {
+                    workoutName: title,
+                    exercises: workoutArray,
+                    userId: auth.currentUser.uid,
+                    createdAt: new Date().toISOString()
+                });
+                alert("Custom list structural package saved smoothly!");
+                window.location.href = "my-workouts.html";
+            } catch (e) {
+                alert("Data sync error: " + e.message);
+            }
+        });
+    </script>
+</body>
+</html>

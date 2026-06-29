@@ -3,39 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
+    <title>PR Workout Planner</title>
     <link rel="stylesheet" href="style.css">
-    <title>Dashboard</title>
 </head>
 <body>
     <header class="user-header">
-        <h1 id="welcome-message">Hello 👋</h1>
-        <p>Ready to crush your goals?</p>
+        <div class="header-top">
+            <svg class="header-icon" onclick="location.href='settings.html'" viewBox="0 0 24 24">
+                <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"/>
+            </svg>
+        </div>
+        <h1>Hello 👋</h1>
+        <p>Welcome to PR Workout Planner</p>
     </header>
 
-    <div class="grid-container">
-        <button class="card" onclick="location.href='workout.html'">Workout</button>
-        <button class="card" onclick="location.href='history.html'">History</button>
-        <button class="card" onclick="location.href='progress.html'">Progress</button>
-        <button class="card" onclick="location.href='library.html'">Library</button>
-        <button class="card" onclick="location.href='metrics.html'">Metrics</button>
-        <button class="card" onclick="location.href='diet.html'">Diet</button>
-        <button class="card" onclick="location.href='challenges.html'">Challenges</button>
-        <button class="card" onclick="location.href='settings.html'">Settings</button>
-    </div>
-
-    <script type="module">
-        import { auth } from "./firebase-config.js";
-        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.x.x/firebase-auth.js";
-
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                const username = user.displayName || user.email.split('@')[0];
-                document.getElementById('welcome-message').innerHTML = `Hello 👋 <br> ${username}`;
-            } else {
-                window.location.href = "login.html";
-            }
-        });
-    </script>
+    <main class="grid-container">
+        <button class="card" onclick="location.href='workout.html'">
+            <svg viewBox="0 0 24 24"><path d="M4,10h3V7H4V10M10.5,10h3V7h-3V10M17,10h3V7h-3V10M4,17h3v-3H4V17M10.5,17h3v-3h-3V17M17,17h3v-3h-3V17z"/></svg>
+        </button>
+        <button class="card" onclick="location.href='history.html'">
+            <svg viewBox="0 0 24 24"><path d="M13.5,8H12V13L16.28,15.54L17,14.33L13.5,12.25V8M13,3A9,9 0 0,0 4,12H1L4.96,16.03L9,12H6A7,7 0 1,1 13,19A7,7 0 0,1 13,5A7,7 0 0,1 20,12H22A9,9 0 0,0 13,3Z"/></svg>
+        </button>
+    </main>
+    <footer>Developed by PR</footer>
 </body>
 </html>

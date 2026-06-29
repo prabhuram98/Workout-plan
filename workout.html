@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Workout</title>
+</head>
+<body>
+    <header class="sub-header">
+        <button class="back-btn" onclick="window.history.back()">←</button>
+        <h2>Workout</h2>
+    </header>
+    
+    <div class="container">
+        <input type="text" id="exercise" placeholder="Exercise Name">
+        <input type="number" id="weight" placeholder="Weight (kg)">
+        <button class="save-btn" onclick="saveWorkout()">Save Workout</button>
+    </div>
+
+    <script type="module" src="workout-logic.js"></script>
+</body>
+</html>

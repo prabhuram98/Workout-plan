@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Workout Routine Details</title>
+</head>
+<body>
+    <header class="sub-header">
+        <button class="back-btn" onclick="location.href='my-workouts.html'">←</button>
+        <h2 id="routineNameDisplay">Routine Details</h2>
+    </header>
+
+    <div class="container" id="detailsContainer">
+        <!-- Loop items unpack here dynamically -->
+    </div>
+
+    <script>
+        const activeData = localStorage.getItem('activeWorkoutInspect');
+        if (!activeData) {
+            window.location.href = "my-workouts.html";
+        } else {
+            const parsed = JSON.parse(activeData);
+            document.getElementById('routineNameDisplay').innerText = parsed.workoutName;
+
+            const displayTarget = document.getElementById('detailsContainer');
+            let builtLayoutStr = "";
+
+            parsed.exercises.forEach(ex => {
+                builtLayoutStr += `
+                    <div class="form-card">
+                        <h3 style="margin:0 0 10px 0; color:#6a1b9a;">${ex.name}</h3>
+                        <div style="display:flex; gap:15px; background:#f3e5f5; padding:10px; border-radius:10px; font-weight:bold;">
+                            <span>Reps: ${ex.reps}</span>
+                            <span>Kgs: ${ex.kgs}</span>
+                            <span>Sec: ${ex.sec}s</span>
+                        </div>
+                    </div>
+                `;
+            });
+            displayTarget.innerHTML = builtLayoutStr;
+        }
+    </script>
+</body>
+</html>

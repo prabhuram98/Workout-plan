@@ -3,67 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PR Tracker Dashboard</title>
-    <style>
-        /* CSS directly integrated for a complete single-file structure */
-        body { background-color: #f3e5f5; font-family: sans-serif; margin: 0; }
-        .user-header { background-color: #6a1b9a; color: white; padding: 40px 20px; text-align: center; }
-        .grid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; }
-        .card { 
-            background: white; border-radius: 20px; padding: 40px 20px; 
-            border: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            font-size: 1.1em; font-weight: bold; color: #6a1b9a;
-            transition: transform 0.2s; cursor: pointer;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-        }
-        .card:active { transform: scale(0.95); }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <title>Dashboard</title>
 </head>
 <body>
-
     <header class="user-header">
         <h1 id="welcome-message">Hello 👋</h1>
         <p>Ready to crush your goals?</p>
     </header>
 
     <div class="grid-container">
-        <button class="card" onclick="window.location.href='workout.html'">Workout</button>
-        <button class="card" onclick="window.location.href='history.html'">History</button>
-        <button class="card" onclick="window.location.href='progress.html'">Progress</button>
-        <button class="card" onclick="window.location.href='library.html'">Library</button>
-        <button class="card" onclick="window.location.href='metrics.html'">Metrics</button>
-        <button class="card" onclick="window.location.href='diet.html'">Diet</button>
-        <button class="card" onclick="window.location.href='challenges.html'">Challenges</button>
-        <button class="card" onclick="window.location.href='settings.html'">Settings</button>
+        <button class="card" onclick="location.href='workout.html'">Workout</button>
+        <button class="card" onclick="location.href='history.html'">History</button>
+        <button class="card" onclick="location.href='progress.html'">Progress</button>
+        <button class="card" onclick="location.href='library.html'">Library</button>
+        <button class="card" onclick="location.href='metrics.html'">Metrics</button>
+        <button class="card" onclick="location.href='diet.html'">Diet</button>
+        <button class="card" onclick="location.href='challenges.html'">Challenges</button>
+        <button class="card" onclick="location.href='settings.html'">Settings</button>
     </div>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.x.x/firebase-app.js";
-        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.x.x/firebase-auth.js";
+        import { auth } from "./firebase-config.js";
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.x.x/firebase-auth.js";
 
-        // Firebase Configuration
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT_ID.firebasestorage.app",
-            messagingSenderId: "YOUR_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-
-        // Authentication State Listener
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 const username = user.displayName || user.email.split('@')[0];
                 document.getElementById('welcome-message').innerHTML = `Hello 👋 <br> ${username}`;
             } else {
-                // Redirect if not logged in
-                if (window.location.pathname !== "/login.html") {
-                    window.location.href = "login.html";
-                }
+                window.location.href = "login.html";
             }
         });
     </script>

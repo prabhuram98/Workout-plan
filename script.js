@@ -1,51 +1,40 @@
-// Navigation Logic
-function navTo(screenId) {
-    document.querySelectorAll('.screen').forEach(screen => {
-        screen.classList.remove('active');
-    });
-    document.getElementById(screenId).classList.add('active');
-    
-    // Reset timer if leaving active workout screen
-    if(screenId !== 'screen-active-workout') {
-        resetTimer();
+// Initialize App Namespace
+const app = {
+    currentExercises: [],
+
+    navTo(screenId) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(screenId).classList.add('active');
+    },
+
+    addExercise() {
+        const name = document.getElementById('ex-name').value;
+        const sets = document.getElementById('ex-sets').value;
+        const reps = document.getElementById('ex-reps').value;
+        const kgs = document.getElementById('ex-kgs').value;
+
+        if(!name) return;
+
+        this.currentExercises.push({ name, sets, reps, kgs });
+        document.getElementById('exercise-list').innerHTML += `
+            <div class="ex-item" style="padding:10px; background:#e1bee7; margin-top:5px; border-radius:8px;">
+                ${name}: ${sets}x${reps} @ ${kgs}kg
+            </div>
+        `;
+        document.getElementById('ex-name').value = '';
+    },
+
+    saveWorkout() {
+        const workoutName = document.getElementById('workout-name').value;
+        const finalWorkout = { 
+            name: workoutName, 
+            exercises: this.currentExercises,
+            timestamp: new Date().toISOString()
+        };
+        
+        console.log("Saving to Cloud:", finalWorkout);
+        alert("Workout saved locally. Ready to connect Firebase!");
     }
-}
+};
 
-// Timer Logic
-let timeLeft = 60;
-let timerInterval = null;
-let isRunning = false;
-const timeDisplay = document.getElementById('timeDisplay');
-const playPauseBtn = document.getElementById('playPauseBtn');
-
-function updateDisplay() {
-    timeDisplay.innerText = timeLeft;
-}
-
-function toggleTimer() {
-    if (isRunning) {
-        clearInterval(timerInterval);
-        playPauseBtn.innerHTML = '<i class="fa-solid fa-play" style="margin-left:3px;"></i>';
-    } else {
-        timerInterval = setInterval(() => {
-            if (timeLeft > 0) {
-                timeLeft--;
-                updateDisplay();
-            } else {
-                clearInterval(timerInterval);
-                isRunning = false;
-                playPauseBtn.innerHTML = '<i class="fa-solid fa-play" style="margin-left:3px;"></i>';
-            }
-        }, 1000);
-        playPauseBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-    }
-    isRunning = !isRunning;
-}
-
-function resetTimer() {
-    clearInterval(timerInterval);
-    isRunning = false;
-    timeLeft = 60;
-    updateDisplay();
-    playPauseBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-}
+window.app = app;

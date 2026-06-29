@@ -3,78 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Workout App">
-    
     <title>Workout Tracker</title>
-    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <div class="app-container">
-
+    <!-- HOME SCREEN -->
     <div id="screen-home" class="screen active">
-        <div class="header-top">
-            <div>
-                <h1>Hello, Prabhu! 👋</h1>
-                <p>Ready to crush your goals today?</p>
-            </div>
-            <div class="avatar"><i class="fa-solid fa-user"></i></div>
-        </div>
+        <header>
+            <h1>Hello, Prabhu! 👋</h1>
+            <p>Ready to crush your goals?</p>
+        </header>
 
-        <div class="main-card" onclick="navTo('screen-workout-list')">
-            <div class="icon-box"><i class="fa-solid fa-dumbbell"></i></div>
-            <div>
-                <h2>Workout</h2>
-                <p>Start your training<br>and stay strong</p>
-            </div>
-            <div class="chevron"><i class="fa-solid fa-chevron-right"></i></div>
-        </div>
-
-        <div class="main-card">
-            <div class="icon-box" style="background: linear-gradient(135deg, #a644ff, #6b1fb3);"><i class="fa-solid fa-chart-line"></i></div>
-            <div>
-                <h2>Progress</h2>
-                <p>Track your performance<br>and stay motivated</p>
-            </div>
-            <div class="chevron"><i class="fa-solid fa-chevron-right"></i></div>
-        </div>
-
-        <div class="main-card">
-            <div class="icon-box" style="background: linear-gradient(135deg, #7c2de0, #400d8a);"><i class="fa-solid fa-bowl-food"></i></div>
-            <div>
-                <h2>Diet</h2>
-                <p>Eat healthy and<br>fuel your body</p>
-            </div>
-            <div class="chevron"><i class="fa-solid fa-chevron-right"></i></div>
-        </div>
-
-        <div class="stats-container">
-            <div class="stat-item">
-                <i class="fa-solid fa-fire" style="color: white;"></i>
-                <h3>0</h3>
-                <p>Day Streak</p>
-            </div>
-            <div class="stat-item" style="border-left: 1px solid rgba(255,255,255,0.1); border-right: 1px solid rgba(255,255,255,0.1);">
-                <i class="fa-solid fa-trophy" style="color: white;"></i>
-                <h3>0</h3>
-                <p>Workouts</p>
-            </div>
-            <div class="stat-item">
-                <i class="fa-solid fa-bullseye" style="color: white;"></i>
-                <h3>0%</h3>
-                <p>Goal Progress</p>
-            </div>
+        <div class="action-grid">
+            <div class="card" onclick="navTo('screen-workout')"><i class="fa-solid fa-dumbbell"></i><h2>Workout</h2></div>
+            <div class="card"><i class="fa-solid fa-clock-rotate-left"></i><h2>History</h2></div>
+            <div class="card"><i class="fa-solid fa-chart-line"></i><h2>Progress</h2></div>
+            <div class="card"><i class="fa-solid fa-book"></i><h2>Library</h2></div>
+            <div class="card"><i class="fa-solid fa-weight-scale"></i><h2>Metrics</h2></div>
+            <div class="card"><i class="fa-solid fa-bowl-food"></i><h2>Diet</h2></div>
+            <div class="card"><i class="fa-solid fa-medal"></i><h2>Challenges</h2></div>
+            <div class="card" onclick="navTo('screen-settings')"><i class="fa-solid fa-gear"></i><h2>Settings</h2></div>
         </div>
     </div>
 
-    <div id="screen-workout-list" class="screen">
-        <div class="header-top" style="justify-content: flex-start; gap: 20px;">
-            <button class="icon-btn" onclick="navTo('screen-home')"><i class="fa-solid fa-chevron-left"></i></button>
-            <h2 style="flex-grow: 1; text-align: center; margin-bottom: 0;">Workout</h2>
-            <button class
+    <!-- WORKOUT SCREEN (Placeholder) -->
+    <div id="screen-workout" class="screen">
+        <button class="back-btn" onclick="navTo('screen-home')"><i class="fa-solid fa-arrow-left"></i></button>
+        <h2>Workouts</h2>
+        <p>Select a routine to begin.</p>
+    </div>
+
+    <!-- SETTINGS SCREEN (Placeholder) -->
+    <div id="screen-settings" class="screen">
+        <button class="back-btn" onclick="navTo('screen-home')"><i class="fa-solid fa-arrow-left"></i></button>
+        <h2>Settings</h2>
+        <div class="card" style="margin-top: 20px;">
+            <p>Cloud Sync: <b>Enabled</b></p>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

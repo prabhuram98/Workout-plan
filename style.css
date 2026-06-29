@@ -1,4 +1,4 @@
-/* --- 1. CORE LOCKDOWN & PROTECTIONS --- */
+/* --- 1. CORE LOCKDOWN & WHITE/PURPLE THEME --- */
 * { box-sizing: border-box; }
 html, body {
     overflow: hidden; 
@@ -6,9 +6,10 @@ html, body {
     width: 100vw;
     margin: 0;
     padding: 0;
-    background-color: #1a0b2e;
+    background-color: #ffffff; /* Plain White Background */
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, sans-serif;
-    color: #ffffff;
+    color: #4a148c; /* Bold Purple Text */
+    font-weight: bold; /* All text is bolded */
     touch-action: manipulation;
     
     /* Prevent text selection and copy/paste */
@@ -19,11 +20,12 @@ html, body {
 
 /* --- 2. HEADERS --- */
 .user-header { 
-    background-color: #4a148c; 
+    background-color: #ffffff; 
     padding: 15px 20px; 
     height: 120px;
     display: flex;
     flex-direction: column;
+    border-bottom: 2px solid #4a148c; /* Adds a purple line to separate header */
 }
 .header-top {
     display: flex;
@@ -31,57 +33,93 @@ html, body {
     width: 100%;
 }
 .header-icon {
-    width: 28px; /* Slightly larger for easier tapping */
+    width: 28px; 
     height: 28px;
-    fill: white;
+    fill: #4a148c; /* Purple Icon */
     cursor: pointer;
 }
 
 h1 { margin: 5px 0; font-size: 1.8em; }
 p { margin: 0; font-size: 0.9em; opacity: 0.8; }
 
-/* --- 3. DASHBOARD GRID (FIXED FOR 6 ICONS) --- */
+/* --- 3. DASHBOARD GRID --- */
 .grid-container { 
     display: grid; 
-    grid-template-columns: repeat(2, 1fr); /* 2 columns */
-    grid-auto-rows: 100px; /* EXACT height for every button. Fixes the "super big" issue. */
+    grid-template-columns: repeat(2, 1fr); 
+    grid-auto-rows: 110px; /* Slightly taller to fit icon + text comfortably */
     gap: 15px; 
     padding: 20px;
-    height: calc(100vh - 180px); /* Leaves room for header and footer */
+    height: calc(100vh - 180px); 
     width: 100vw;
-    align-content: start; /* Packs buttons to the top, stops stretching */
+    align-content: start; 
 }
 
-/* --- 4. BUTTONS & ICONS --- */
+/* --- 4. BUTTONS & ICONS (WITH TEXT UNDERNEATH) --- */
 .card { 
-    background: #2d1b4e; 
+    background: #ffffff; 
     border-radius: 15px; 
-    border: none; 
-    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    border: 2px solid #4a148c; /* Purple border so they are visible on white */
+    box-shadow: 0 4px 6px rgba(74, 20, 140, 0.2);
     cursor: pointer;
     display: flex; 
+    flex-direction: column; /* Forces text to go under the icon */
     align-items: center; 
     justify-content: center;
     width: 100%;
     height: 100%; 
+    gap: 8px; /* Space between icon and text */
+    color: #4a148c;
+    font-size: 0.85em;
 }
-.card:active { transform: scale(0.95); background: #3d2b5e; }
+.card:active { transform: scale(0.95); background: #f3ebfa; }
 
-/* The icons inside the 6 buttons */
 .card svg {
-    width: 40px; 
-    height: 40px;
-    fill: #ffffff;
+    width: 35px; 
+    height: 35px;
+    fill: #4a148c; /* Purple Icons */
     pointer-events: none;
 }
 
-/* --- 5. FOOTER --- */
+/* --- 5. FORMS & MOBILE ZOOM FIXES --- */
+.full-viewport {
+    height: 100vh; 
+    width: 100vw;
+    padding: 20px;
+    overflow-y: auto; /* Allows scrolling on configure screen if needed */
+}
+
+/* Prevent auto-zoom on mobile by forcing 16px font size on inputs */
+input, select, textarea { 
+    width: 100%; 
+    padding: 15px; 
+    margin: 10px 0; 
+    border-radius: 10px; 
+    border: 2px solid #4a148c; 
+    background: #ffffff; 
+    color: #4a148c;
+    font-weight: bold;
+    font-size: 16px !important; 
+}
+
+button.save-btn { 
+    width: 100%; 
+    padding: 15px; 
+    background-color: #4a148c; 
+    color: white; 
+    border: none; 
+    border-radius: 10px; 
+    font-size: 1.2em;
+    font-weight: bold; 
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+/* --- 6. FOOTER --- */
 footer {
     position: absolute;
     bottom: 0;
     width: 100%;
     padding: 15px; 
     font-size: 0.8em; 
-    opacity: 0.6;
     text-align: center;
 }

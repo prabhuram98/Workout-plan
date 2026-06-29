@@ -2,27 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- This meta tag is critical for locking the screen size on mobile -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Configure Workout</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <header class="user-header" style="height: auto; flex-direction: row; align-items: center; justify-content: space-between;">
-        <button onclick="location.href='index.html'" style="background:none; border:none; color:#4a148c; font-size: 1.5em; cursor:pointer;">←</button>
-        <h2 style="margin:0;">Configure</h2>
-        <div style="width: 30px;"></div> <!-- Spacer for center alignment -->
+    <header class="sub-header">
+        <button onclick="location.href='index.html'" style="background:none; border:none; color:#4a148c;">←</button>
+        <h2>Configure</h2>
     </header>
 
     <div class="full-viewport">
-        <!-- Example forms so you can see it doesn't zoom anymore -->
-        <input type="text" placeholder="Exercise Name">
-        <input type="number" placeholder="Sets">
-        <input type="number" placeholder="Reps">
+        <input type="text" id="exercise-name" placeholder="Exercise Name">
+        <input type="number" id="sets" placeholder="Sets">
+        <input type="number" id="reps" placeholder="Reps">
+        <input type="number" id="weight" placeholder="Weight (kg)">
         
-        <button class="save-btn" onclick="alert('Saved!')">Save Workout</button>
+        <button class="save-btn" onclick="saveConfiguration()">Save Configuration</button>
     </div>
 
+    <script>
+        function saveConfiguration() {
+            // Original save logic
+        }
+    </script>
 </body>
 </html>

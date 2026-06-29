@@ -1,594 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-<meta charset="UTF-8">
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-
-<title>PRABHU's Trainer</title>
-
-<link rel="stylesheet" href="style.css">
-
-<!-- SF Pro fallback -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-</head>
-
-<body>
-
-<div id="app">
-
-<!-- ================================================= -->
-<!-- HOME -->
-<!-- ================================================= -->
-
-<section id="homeScreen" class="screen active">
-
-<header class="hero">
-
-<h1>
-
-PRABHU's Trainer
-
-</h1>
-
-<p id="coachSuggestion">
-
-Stay consistent today 💪
-
-</p>
-
-</header>
-
-
-<div class="homeGrid">
-
-<button id="workoutBtn" class="homeCard">
-
-<div class="icon">
-
-🏋️
-
-</div>
-
-<h2>
-
-Workout
-
-</h2>
-
-</button>
-
-
-
-<button id="dietBtn" class="homeCard">
-
-<div class="icon">
-
-🥗
-
-</div>
-
-<h2>
-
-Diet
-
-</h2>
-
-</button>
-
-
-
-<button id="progressBtn" class="homeCard">
-
-<div class="icon">
-
-📈
-
-</div>
-
-<h2>
-
-Progress
-
-</h2>
-
-</button>
-
-</div>
-
-
-<footer>
-
-Developed By PR
-
-</footer>
-
-</section>
-
-
-
-<!-- ================================================= -->
-<!-- WORKOUT SCREEN -->
-<!-- ================================================= -->
-
-<section id="workoutScreen" class="screen">
-
-<div class="navBar">
-
-<button class="backButton" id="backWorkout">
-
-←
-
-</button>
-
-<h2 id="workoutTitle">
-
-Workout
-
-</h2>
-
-</div>
-
-
-
-<div class="progressArea">
-
-<div id="progressText">
-
-0 / 0 Exercises Completed
-
-</div>
-
-<div class="progressTrack">
-
-<div id="progressFill"></div>
-
-</div>
-
-</div>
-
-
-
-<div id="exerciseContainer">
-
-</div>
-
-
-
-<button id="finishWorkout"
-
-class="primaryButton">
-
-Complete Workout
-
-</button>
-
-</section>
-
-
-
-<!-- ================================================= -->
-<!-- PROGRESS -->
-<!-- ================================================= -->
-
-<section id="progressScreen" class="screen">
-
-<div class="navBar">
-
-<button class="backButton"
-
-id="backProgress">
-
-←
-
-</button>
-
-<h2>
-
-Progress
-
-</h2>
-
-</div>
-
-
-
-<div id="progressCards">
-
-</div>
-
-
-
-<div id="historyCards">
-
-</div>
-
-</section>
-
-
-
-<!-- ================================================= -->
-<!-- DIET -->
-<!-- ================================================= -->
-
-<section id="dietScreen" class="screen">
-
-<div class="navBar">
-
-<button class="backButton"
-
-id="backDiet">
-
-←
-
-</button>
-
-<h2>
-
-Diet
-
-</h2>
-
-</div>
-
-
-
-<div id="dietCards">
-
-</div>
-
-</section>
-
-
-
-
-
-<!-- ================================================= -->
-<!-- APPLE WORKOUT PICKER -->
-<!-- ================================================= -->
-
-<div id="pickerOverlay">
-
-<div id="pickerSheet">
-
-<div class="grabber"></div>
-
-<h3>
-
-Choose Today's Workout
-
-</h3>
-
-
-
-<div id="workoutList">
-
-</div>
-
-
-
-<button id="closePicker"
-
-class="secondaryButton">
-
-Cancel
-
-</button>
-
-</div>
-
-</div>
-
-
-
-
-
-<!-- ================================================= -->
-<!-- REST TIMER -->
-<!-- ================================================= -->
-
-<div id="timerOverlay">
-
-<div class="timerCard">
-
-<h3>
-
-Rest Timer
-
-</h3>
-
-
-
-<div id="timerCircle">
-
-<span id="timerValue">
-
-60
-
-</span>
-
-</div>
-
-
-
-<div class="timerButtons">
-
-<button id="pauseTimer">
-
-Pause
-
-</button>
-
-<button id="skipTimer">
-
-Skip
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-
-
-<script src="workouts.js"></script>
-
-<script src="learn.js"></script>
-
-<script src="videos.js"></script>
-
-<script src="app.js"></script>
-
-</body>
-
-</html>
-/* =========================
-   NAV BAR
-========================= */
-
-.navBar{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin-bottom:15px;
-}
-
-.navBar h2{
-  font-size:18px;
-  font-weight:700;
-}
-
-.backButton{
-  width:38px;
-  height:38px;
-  border-radius:12px;
-  border:none;
-  background:#fff;
-  box-shadow:0 4px 10px rgba(0,0,0,0.08);
-  font-size:18px;
-}
-
-/* =========================
-   PROGRESS AREA
-========================= */
-
-.progressArea{
-  margin:10px 0 20px;
-}
-
-.progressTrack{
-  width:100%;
-  height:6px;
-  background:#e5e5ea;
-  border-radius:20px;
-  overflow:hidden;
-}
-
-#progressFill{
-  height:100%;
-  width:0%;
-  background:var(--blue);
-  transition:0.3s ease;
-}
-
-#progressText{
-  font-size:13px;
-  color:var(--muted);
-  margin-bottom:8px;
-}
-
-/* =========================
-   EXERCISE CARDS
-========================= */
-
-.exerciseCard{
-  background:var(--card);
-  border-radius:var(--radius);
-  padding:14px;
-  margin-bottom:12px;
-  box-shadow:0 4px 12px rgba(0,0,0,0.06);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  transition:0.2s ease;
-}
-
-.exerciseCard:active{
-  transform:scale(0.99);
-}
-
-/* LEFT SIDE TEXT */
-.exerciseInfo{
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-}
-
-.exerciseName{
-  font-weight:600;
-  font-size:15px;
-}
-
-.exerciseMeta{
-  font-size:12px;
-  color:var(--muted);
-}
-
-/* =========================
-   CIRCLE CHECK (OPTION 1)
-========================= */
-
-.circleBtn{
-  width:28px;
-  height:28px;
-  border-radius:50%;
-  border:2px solid var(--blue);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  transition:0.2s ease;
-}
-
-.circleBtn.done{
-  background:var(--green);
-  border-color:var(--green);
+body{
+  margin:0;
+  font-family:-apple-system, Arial;
+  background: linear-gradient(180deg, #5b2cff, #2a0a6a);
   color:white;
 }
 
-/* =========================
-   BUTTONS
-========================= */
-
-.primaryButton{
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:14px;
-  background:var(--blue);
-  color:white;
-  font-weight:600;
-  margin-top:15px;
-}
-
-.primaryButton:disabled{
-  opacity:0.5;
-}
-
-.secondaryButton{
-  width:100%;
-  padding:12px;
-  border:none;
-  border-radius:14px;
-  background:#e5e5ea;
-  color:#111;
-  margin-top:10px;
-}
-
-/* =========================
-   APPLE BOTTOM SHEET
-========================= */
-
-#pickerOverlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.35);
+/* SCREEN */
+.screen{
   display:none;
-  justify-content:flex-end;
-}
-
-#pickerSheet{
-  background:white;
-  width:100%;
-  border-radius:22px 22px 0 0;
-  padding:16px;
-  animation:slideUp 0.25s ease;
-  max-height:70vh;
-  overflow-y:auto;
-}
-
-@keyframes slideUp{
-  from{ transform:translateY(100%); }
-  to{ transform:translateY(0); }
-}
-
-.grabber{
-  width:40px;
-  height:5px;
-  background:#ddd;
-  border-radius:20px;
-  margin:0 auto 10px;
-}
-
-/* =========================
-   WORKOUT LIST ITEM
-========================= */
-
-.workoutItem{
-  padding:14px;
-  border-radius:14px;
-  background:#f8f8fa;
-  margin-bottom:10px;
-  font-weight:600;
-}
-
-.workoutItem:active{
-  transform:scale(0.98);
-}
-
-/* =========================
-   TIMER
-========================= */
-
-#timerOverlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.4);
-  display:none;
-  align-items:center;
-  justify-content:center;
-}
-
-.timerCard{
-  background:white;
   padding:20px;
-  border-radius:18px;
-  width:80%;
-  text-align:center;
+  min-height:100vh;
 }
 
-#timerCircle{
-  width:90px;
-  height:90px;
-  border-radius:50%;
-  border:6px solid var(--blue);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin:15px auto;
+.screen.active{
+  display:block;
+}
+
+/* TITLE */
+.title{
+  font-size:30px;
+  font-weight:800;
+  margin-bottom:20px;
+}
+
+/* BIG CARDS */
+.bigCard{
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(10px);
+  padding:22px;
+  margin-bottom:14px;
+  border-radius:20px;
   font-size:20px;
   font-weight:700;
+  box-shadow:0 10px 30px rgba(0,0,0,0.2);
+  cursor:pointer;
 }
 
-.timerButtons{
+/* NORMAL CARD */
+.card{
+  background: rgba(255,255,255,0.10);
+  padding:16px;
+  margin-bottom:12px;
+  border-radius:16px;
+}
+
+/* TOPBAR */
+.topbar{
   display:flex;
+  align-items:center;
   gap:10px;
-  margin-top:10px;
+  margin-bottom:20px;
 }
 
-.timerButtons button{
-  flex:1;
-  padding:10px;
+.topbar button{
+  background: rgba(255,255,255,0.15);
   border:none;
-  border-radius:10px;
+  color:white;
+  padding:10px 14px;
+  border-radius:12px;
+}
+
+/* FOOTER */
+.footer{
+  margin-top:40px;
+  text-align:center;
+  font-size:12px;
+  opacity:0.7;
 }
